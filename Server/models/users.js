@@ -1,7 +1,6 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
   class users extends Model {
     /**
@@ -13,15 +12,68 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  users.init({
-    name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    address: DataTypes.STRING,
-    phone: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'users',
-  });
+
+  users.init(
+    {
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "Name is required",
+          },
+        },
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+          isEmail: {
+            msg: "Must be a valid email address",
+          },
+        },
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          len: {
+            args: [6, 128],
+            msg: "Password should be between 6 and 128 characters",
+          },
+        },
+      },
+      address: DataTypes.STRING,
+      phone: {
+        type: DataTypes.STRING,
+        validate: {
+          isNumeric: {
+            msg: "Phone number should contain only numbers",
+          },
+          len: {
+            args: [10, 15],
+            msg: "Phone number should be between 10 and 15 digits",
+          },
+        },
+      },
+      role: {
+        type: DataTypes.ENUM("admin", "user"),
+        allowNull: false,
+        validate: {
+          isIn: {
+            args: [["admin", "user"]],
+            msg: "Role must be either admin or user",
+          },
+        },
+      },
+      photoProfile: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: "users",
+    }
+  );
+
   return users;
 };
