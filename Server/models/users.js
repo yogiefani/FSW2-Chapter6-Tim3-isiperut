@@ -73,8 +73,12 @@ module.exports = (sequelize, DataTypes) => {
                         msg: "Role must be either admin or user",
                     },
                 },
+                unique: {
+                  name: "unique_phone_constraint",
+                  msg: "phone already used",
+              },
             },
-            photoProfile: DataTypes.STRING,
+            photoProfile: DataTypes.TEXT,
         },
         {
             sequelize,
