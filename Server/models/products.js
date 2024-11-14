@@ -13,16 +13,50 @@ module.exports = (sequelize, DataTypes) => {
   }
   products.init(
     {
-      name: DataTypes.STRING,
-      desc: DataTypes.TEXT,
-      price: DataTypes.STRING,
-      stock: DataTypes.STRING,
-      // category: DataTypes.ENUM("food", " drink"),
-      category: DataTypes.TEXT,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          len: [3, 50], // Minimum 3 and maximum 50 characters
+        },
+      },
+      desc: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+        },
+      },
+      price: {
+        type: DataTypes.DECIMAL,
+        allowNull: false,
+        validate: {
+          isDecimal: true, // Ensures the value is a decimal
+          min: 0, // Minimum value for price
+        },
+      },
+      stock: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          isInt: true, // Ensures the value is an integer
+          min: 0, // Minimum stock should be 0
+        },
+      },
+      category: {
+        type: DataTypes.ENUM("food", "drink"),
+        allowNull: false,
+        validate: {
+          isIn: [["food", "drink"]], // Restricts values to "food" or "drink"
+        },
+      },
+      image: DataTypes.TEXT,
     },
     {
       sequelize,
       modelName: "products",
+      paranoid: true, // Enables soft delete by adding deletedAt timestamp
     }
   );
   return products;
