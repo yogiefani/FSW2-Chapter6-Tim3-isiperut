@@ -11,17 +11,25 @@ module.exports = {
       },
       name: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       desc: {
         type: Sequelize.TEXT,
+        allowNull: false,
       },
       price: {
-        type: Sequelize.STRING,
+        type: Sequelize.DECIMAL,
+        allowNull: false,
       },
       stock: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       category: {
+        type: Sequelize.ENUM("food", "drink"),
+        allowNull: false,
+      },
+      image: {
         type: Sequelize.TEXT,
       },
       createdAt: {
@@ -31,6 +39,9 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
+      },
+      deletedAt: {
+        type: Sequelize.DATE, // Soft delete column
       },
     });
   },
