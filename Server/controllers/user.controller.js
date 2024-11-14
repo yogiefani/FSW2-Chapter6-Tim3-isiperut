@@ -1,12 +1,14 @@
 const { users } = require("../models"); // import the users model
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
+const imagekit = require("../lib/imagekit");
 
 // Create a new user
 const createUser = async (req, res) => {
   try {
-    const { name, email, password, address, phone, role, photoProfile } =
-      req.body;
+    const { name, email, password, address, phone, role = "user" } = req.body;
+    const file = req.file;
+    console.log(file);
 
     if (!name || !email || !password) {
       res.status(400);
@@ -14,6 +16,15 @@ const createUser = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    let photoProfile = null;
+    if (file) {
+      const uploadedImage = await imagekit.upload({
+        file: file.buffer,
+        fileName: file.originalname,
+      });
+      photoProfile = uploadedImage.url;
+    }
 
     const newUser = await users.create({
       name,
@@ -24,16 +35,17 @@ const createUser = async (req, res) => {
       role,
       photoProfile,
     });
+
     res.status(201).json({
       status: "Success",
-      message: "Success to create user",
+      message: "User created successfully",
       isSuccess: true,
       data: newUser,
     });
   } catch (error) {
     res.status(500).json({
       status: "Failed",
-      message: "Failed to create user",
+      message: error.message,
       isSuccess: false,
       data: null,
     });
