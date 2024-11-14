@@ -1,6 +1,4 @@
 const { users } = require("../models"); // import the users model
-const bcrypt = require("bcrypt");
-const saltRounds = 10;
 const imagekit = require("../lib/imagekit");
 
 // Create a new user
@@ -14,8 +12,6 @@ const createUser = async (req, res) => {
       res.status(400);
       throw new Error("Please provide name, email, and password");
     }
-
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     let photoProfile = null;
     if (file) {
@@ -127,11 +123,6 @@ const updateUser = async (req, res) => {
     const { name, email, password, address, phone, role, photoProfile } =
       req.body;
     const updateData = { name, email, address, phone, role, photoProfile };
-
-    // Hash the password if it is provided in the update request
-    if (password) {
-      updateData.password = await bcrypt.hash(password, saltRounds);
-    }
 
     const [updated] = await users.update(updateData, {
       where: { id: req.params.id },
