@@ -10,10 +10,16 @@ const AuthContentCarousel = () => {
             text="Nikmati layanan kami dengan mudah"
           />
           <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-            <a href="#slide3" className="btn btn-circle">
+            <a
+              href="#slide2"
+              className="btn btn-circle opacity-0 hover:opacity-100 pointer-events-auto"
+            >
               ❮
             </a>
-            <a href="#slide2" className="btn btn-circle">
+            <a
+              href="#slide1"
+              className="btn btn-circle opacity-0 hover:opacity-100 pointer-events-auto"
+            >
               ❯
             </a>
           </div>
@@ -24,10 +30,16 @@ const AuthContentCarousel = () => {
             text="Yogi jual burger coy"
           />
           <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-            <a href="#slide1" className="btn btn-circle">
+            <a
+              href="#slide2"
+              className="btn btn-circle opacity-0 hover:opacity-100 pointer-events-auto"
+            >
               ❮
             </a>
-            <a href="#slide3" className="btn btn-circle">
+            <a
+              href="#slide1"
+              className="btn btn-circle opacity-0 hover:opacity-100 pointer-events-auto"
+            >
               ❯
             </a>
           </div>
