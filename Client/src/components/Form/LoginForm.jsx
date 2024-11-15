@@ -23,10 +23,10 @@ const LoginForm = () => {
       console.log(response.data);
       if (response.data.isSuccess) {
         const token = response.data.data.token;
-        const email = response.data.data.user.email;
+        const user = response.data.data.user.name;
 
         localStorage.setItem("token", token);
-        localStorage.setItem("email", email);
+        localStorage.setItem("user", user);
         console.log("Login successful");
       }
       toast.success("Login successful");
