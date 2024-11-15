@@ -26,7 +26,7 @@ const LoginForm = () => {
         const email = response.data.data.user.email;
 
         localStorage.setItem("token", token);
-        localStorage.setItem("username", username);
+        localStorage.setItem("email", email);
         console.log("Login successful");
       }
       toast.success("Login successful");
