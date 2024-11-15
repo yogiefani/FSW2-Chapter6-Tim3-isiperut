@@ -7,6 +7,7 @@ import MyCartView from "./pages/MyCartView";
 import AdminDashboard from "./pages/AdminDashboardView";
 import NotFoundView from "./pages/NotFoundView";
 import RegisterView from "./pages/RegisterView";
+import LoginView from "./pages/LoginView";
 // import { LoginPage } from "./page/LoginPage";
 // import { RegisterPage } from "./page/RegisterPage";
 
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <RegisterView />,
+  },
+  {
+    path: "/login",
+    element: <LoginView />,
   },
   {
     path: "/*",
