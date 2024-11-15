@@ -1,10 +1,8 @@
-const RegisterForm = () => {
+const LoginForm = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-center text-gray-800">
-          Register
-        </h2>
+        <h2 className="text-2xl font-bold text-center text-gray-800">Login</h2>
         <form className="space-y-6">
           <div>
             <label
@@ -36,7 +34,7 @@ const RegisterForm = () => {
               className="bg-white text-black mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
           </div>
-          {/* <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between">
             <label className="flex items-center">
               <input
                 type="checkbox"
@@ -50,18 +48,18 @@ const RegisterForm = () => {
             >
               Forgot password?
             </a>
-          </div> */}
+          </div>
           <button
             type="submit"
             className="w-full py-2 px-4 bg-red-600 text-white font-semibold rounded-md hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           >
-            Sign up
+            Sign in
           </button>
         </form>
         <p className="text-sm text-center text-gray-600">
-          Already have an account?{" "}
-          <a href="/login" className="text-indigo-600 hover:text-indigo-500">
-            Sign in
+          Don't have an account?{" "}
+          <a href="/register" className="text-indigo-600 hover:text-indigo-500">
+            Sign up
           </a>
         </p>
       </div>{" "}
@@ -69,4 +67,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default LoginForm;

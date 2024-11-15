@@ -1,14 +1,14 @@
-import RegisterForm from "../components/Form/RegisterForm";
 import AuthContentCarousel from "../components/Carousel/AuthContentCarousel";
-function RegisterView() {
+import LoginForm from "../components/Form/LoginForm";
+function LoginView() {
   return (
     <>
       <div class="grid grid-cols-2">
-        <RegisterForm />
+        <LoginForm />
         <AuthContentCarousel />
       </div>
     </>
   );
 }
 
-export default RegisterView;
+export default LoginView;
