@@ -1,6 +1,6 @@
 const Navbar = () => {
   return (
-    <ul>
+    <ul className="bg-red-700">
       <li>Ini Navbar</li>
       <li>Home</li>
       <li>Product</li>
