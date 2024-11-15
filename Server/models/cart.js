@@ -20,8 +20,26 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   cart.init({
-    amount: DataTypes.STRING,
-    total: DataTypes.STRING,
+    amount: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        isNumeric: {
+          msg: "Phone number should contain only numbers",
+      }
+      }
+    },
+    total: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        isNumeric: {
+          msg: "Phone number should contain only numbers",
+      }
+      }
+    },
     userId: DataTypes.INTEGER,
     productId: DataTypes.INTEGER
   }, {
