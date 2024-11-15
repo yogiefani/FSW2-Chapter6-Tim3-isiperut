@@ -1,4 +1,5 @@
 const { users } = require("../models"); // import the users model
+const bcrypt = require("bcrypt");
 const imagekit = require("../lib/imagekit");
 
 // Create a new user
@@ -25,7 +26,7 @@ const createUser = async (req, res) => {
     const newUser = await users.create({
       name,
       email,
-      password: hashedPassword,
+      password,
       address,
       phone,
       role,
