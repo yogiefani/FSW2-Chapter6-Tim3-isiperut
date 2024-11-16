@@ -16,21 +16,14 @@ export const loader = async () => {
     const response = await axiosInstance.get("/users");
     const users = response.data.data;
 
-    const productsData = await axiosInstance.get("/products");
-    const products = productsData.data.data;
-
-    return { users, products };
+    return { users };
 };
 
 function AdminDashboard() {
-    const { users, products } = useLoaderData();
+    const { users } = useLoaderData();
     return (
         <>
             <NavbarForAdmin />
-            <div className="m-5 mt-8">
-                <h1 className="text-4xl font-semibold text-left">Users</h1>
-            </div>
-            
             <div className="m-5 mt-20">
                 <h1 className="text-4xl font-semibold text-left">Our Active Users</h1>
             </div>
