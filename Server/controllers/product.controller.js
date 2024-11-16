@@ -69,7 +69,7 @@ const getAllProducts = async (req, res) => {
       paranoid: false, // Include soft-deleted products
     });
 
-    res.status(200).json({
+    return res.status(200).json({
       status: "Success",
       message: "Success to get products",
       isSuccess: true,
@@ -82,7 +82,7 @@ const getAllProducts = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       status: "Failed",
       message: "Failed to get products",
       isSuccess: false,
