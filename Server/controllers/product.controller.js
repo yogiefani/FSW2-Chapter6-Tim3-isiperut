@@ -158,10 +158,9 @@ const updateProduct = async (req, res) => {
   }
 };
 
-
 // Soft delete a product by ID
 const deleteProduct = async (req, res) => {
-  try { 
+  try {
     const deleted = await products.destroy({ where: { id: req.params.id } });
     if (deleted) {
       res.status(200).json({
