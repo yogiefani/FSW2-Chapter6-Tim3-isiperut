@@ -6,12 +6,12 @@ import { checkAccess } from "../../middlewares/Auth";
 import CardProduct from "../../components/Card/CardProduct";
 
 export const loader = async () => {
-    //middleware buat check yang login role admin apa bukan
-    const access = await checkAccess();
+  //middleware buat check yang login role admin apa bukan
+  const access = await checkAccess();
 
-    if (!access) {
-        return redirect("/not-found");
-    }
+  if (!access) {
+    return redirect("/not-found");
+  }
 
     const productsData = await axiosInstance.get("/products");
     const products = productsData.data.data;
