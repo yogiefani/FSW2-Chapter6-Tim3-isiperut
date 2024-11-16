@@ -5,6 +5,7 @@ import NavbarForAdmin from "../../components/Navbar/NavbarForAdmin";
 import { checkAccess } from "../../middlewares/Auth";
 
 export const loader = async () => {
+    //middleware buat check yang login role admin apa bukan
     const access = await checkAccess();
 
     if (!access) {
