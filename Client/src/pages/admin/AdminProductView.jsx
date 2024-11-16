@@ -22,15 +22,20 @@ export const loader = async () => {
     return { users, products };
 };
 
-function AdminDashboard() {
+function AdminProductDashboard() {
     const { users, products } = useLoaderData();
     return (
         <>
             <NavbarForAdmin />
             <div className="m-5 mt-8">
-                <h1 className="text-4xl font-semibold text-left">Users</h1>
+                <h1 className="text-4xl font-semibold text-left">Product On Sales</h1>
             </div>
-            
+            <div className="m-5 grid md:grid-cols-3 lg:grid-cols-4 gap-y-10">
+                {products.map((product) => (
+                    <CardProduct 
+                    key={product.id} id={product.id} image={product.image} name={product.name} description={product.desc} price={product.price} stock={product.stock} category={product.category}/>
+                ))}
+            </div>
             <div className="m-5 mt-20">
                 <h1 className="text-4xl font-semibold text-left">Our Active Users</h1>
             </div>
@@ -51,4 +56,4 @@ function AdminDashboard() {
         </>
     );
 }
-export default AdminDashboard;
+export default AdminProductDashboard;

@@ -123,17 +123,17 @@ const getProductById = async (req, res) => {
 // Update a product by ID
 const updateProduct = async (req, res) => {
   try {
-    const { name, desc, price, stock, category, photoProfile } = req.body;
-    const updateData = { name, desc, price, stock, category, photoProfile };
+    const { name, desc, price, stock, category, image } = req.body;
+    const updateData = { name, desc, price, stock, category, image };
 
+    // Update product based on the provided ID
     const [updated] = await products.update(updateData, {
       where: { id: req.params.id },
     });
 
     if (updated) {
-      const updatedProduct = await products.findByPk(req.params.id, {
-        paranoid: false,
-      });
+      // Fetch updated product data
+      const updatedProduct = await products.findByPk(req.params.id);
       res.status(200).json({
         status: "Success",
         message: "Product updated successfully",
@@ -158,9 +158,10 @@ const updateProduct = async (req, res) => {
   }
 };
 
+
 // Soft delete a product by ID
 const deleteProduct = async (req, res) => {
-  try {
+  try { 
     const deleted = await products.destroy({ where: { id: req.params.id } });
     if (deleted) {
       res.status(200).json({
