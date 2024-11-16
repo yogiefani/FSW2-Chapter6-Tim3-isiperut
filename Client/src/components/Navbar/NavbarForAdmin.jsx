@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import NavbarList from "./NavbarList";
+import NavbarListForAdmin from "./NavbarListForAdmin";
 
 const NavbarForAdmin = () => {
     return (
@@ -32,7 +32,7 @@ const NavbarForAdmin = () => {
                             tabIndex={0}
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
                         >
-                            <NavbarList />
+                            <NavbarListForAdmin />
                         </ul>
                     </div>
                     <NavLink to="/" className="btn btn-ghost text-xl hidden lg:flex">
@@ -41,7 +41,7 @@ const NavbarForAdmin = () => {
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
-                        <NavbarList />
+                        <NavbarListForAdmin />
                     </ul>
                 </div>
                 <div className="navbar-end flex gap-4">
