@@ -3,6 +3,7 @@ import axiosInstance from "../../api/axiosInstance";
 import CardUser from "../../components/Card/CardUser";
 import NavbarForAdmin from "../../components/Navbar/NavbarForAdmin";
 import { checkAccess } from "../../middlewares/Auth";
+import CardProduct from "../../components/Card/CardProduct";
 
 export const loader = async () => {
     //middleware buat check yang login role admin apa bukan
@@ -14,14 +15,29 @@ export const loader = async () => {
 
     const response = await axiosInstance.get("/users");
     const users = response.data.data;
-    return { users };
+
+    const productsData = await axiosInstance.get("/products");
+    const products = productsData.data.data;
+
+    return { users, products };
 };
 
 function AdminDashboard() {
-    const { users } = useLoaderData();
+    const { users, products } = useLoaderData();
     return (
         <>
             <NavbarForAdmin />
+            <div className="m-5 mt-8">
+                <h1 className="text-4xl font-semibold text-left">Product On Sales</h1>
+            </div>
+            <div className="m-5 grid md:grid-cols-3 lg:grid-cols-4 gap-y-10">
+                {products.map((product) => (
+                    <CardProduct image={product.image} name={product.name} description={product.desc} price={product.price} stock={product.stock} category={product.category}/>
+                ))}
+            </div>
+            <div className="m-5 mt-20">
+                <h1 className="text-4xl font-semibold text-left">Our Active Users</h1>
+            </div>
             <div className="m-5 grid md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {users.slice(1).map((user) => (
                     <CardUser
