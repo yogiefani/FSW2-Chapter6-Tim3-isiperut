@@ -23,7 +23,7 @@ const CardUser = (props) => {
                         <p className="mb-4 font-semibold">{phone}</p>
                         <p className="mb-4 font-semibold">{address}</p>
                     </div>
-                    <div className="card-actions justify-end">
+                    <div className="card-actions gap-4 justify-end">
                         <Link className="btn btn-accent" to={`/admin-dashboard/user/${id}/edit`}>
                             <BsPencilSquare />
                         </Link>

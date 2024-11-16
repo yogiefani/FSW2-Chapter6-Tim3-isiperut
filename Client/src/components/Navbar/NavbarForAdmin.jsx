@@ -36,7 +36,7 @@ const NavbarForAdmin = () => {
                         </ul>
                     </div>
                     <NavLink to="/" className="btn btn-ghost text-xl hidden lg:flex">
-                    <img src="../../../public/images/isi perut.png" alt="isi perut.png" width="40px" /> <p className="font-bold text-orange-400">ISI PERUT</p>
+                    <img src="../../../public/images/isi perut.png" alt="isi perut.png" width="40px" /> <p className="font-bold text-orange-400">ISI PERUT</p> <p className="badge bg-[#F07822] border-white text-white">admin</p>
                     </NavLink>
                 </div>
                 <div className="navbar-center hidden lg:flex">

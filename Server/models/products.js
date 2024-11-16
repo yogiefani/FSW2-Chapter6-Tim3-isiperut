@@ -55,7 +55,9 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       image: DataTypes.TEXT,
+      deletedAt: DataTypes.DATE,
     },
+
     {
       sequelize,
       modelName: "products",

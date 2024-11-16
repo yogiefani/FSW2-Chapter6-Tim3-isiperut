@@ -14,7 +14,7 @@ const NavbarList = () => {
                 const { id, text, url } = list;
                 return (
                     <li key={id}>
-                        <NavLink to={url} className="capitalize">{text}</NavLink>
+                        <NavLink to={url} className="capitalize text-white">{text}</NavLink>
                     </li>
                 );
             })}
