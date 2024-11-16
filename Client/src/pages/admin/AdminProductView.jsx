@@ -23,7 +23,7 @@ export const loader = async () => {
 };
 
 function AdminProductDashboard() {
-  const { users, products } = useLoaderData();
+  const { products } = useLoaderData();
   return (
     <>
       <NavbarForAdmin />
@@ -42,27 +42,6 @@ function AdminProductDashboard() {
             stock={product.stock}
             category={product.category}
             deletedAt={product.deletedAt}
-          />
-        ))}
-      </div>
-      <div className="m-5 mt-20">
-        <h1 className="text-4xl font-semibold text-left">Our Active Users</h1>
-      </div>
-      <div className="m-5 grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {users.slice(1).map((user) => (
-          <CardUser
-            key={user.id}
-            id={user.id}
-            image={
-              user.photoProfile
-                ? user.photoProfile
-                : "https://ik.imagekit.io/9h1gnwzay/default-image.jpg?updatedAt=1728904313272"
-            }
-            name={user.name}
-            email={user.email}
-            phone={user.phone}
-            address={user.address}
-            role={user.role}
           />
         ))}
       </div>
