@@ -13,6 +13,8 @@ import LoginView from "./pages/LoginView";
 //admin view
 import AdminDashboard from "./pages/admin/AdminDashboardView";
 import AdminEditUserView from "./pages/admin/AdminEditUserView";
+import AdminProductDashboard from "./pages/admin/AdminProductView";
+import AdminEditProductView from "./pages/admin/AdminEditProductView";
 
 //loader
 import { loader as AdminHomeLoader } from "./pages/admin/AdminDashboardView";
@@ -38,6 +40,15 @@ const router = createBrowserRouter([
   {
     path: "/admin-dashboard/user/:id/edit",
     element: <AdminEditUserView />,
+  },
+  {
+    path: "/admin-dashboard-product",
+    element: <AdminProductDashboard />,
+    loader: AdminHomeLoader,
+  },
+  {
+    path: "/admin-dashboard/product/:id/edit",
+    element: <AdminEditProductView />,
   },
   {
     path: "/register",
