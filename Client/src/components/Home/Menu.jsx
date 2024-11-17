@@ -8,7 +8,6 @@ const Menu = () => {
           Xabite's Menu
         </h2>
 
-        {/* Container for cards */}
         <div className="flex flex-wrap justify-center gap-x-6 gap-y-24">
           {/* Card 1 */}
           <div className="relative bg-gray-200 opacity-80 rounded-3xl shadow-lg p-4 flex flex-col text-center w-[280px]">
