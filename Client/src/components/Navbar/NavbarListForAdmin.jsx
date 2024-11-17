@@ -1,13 +1,12 @@
-import React from "react";
 import { NavLink } from "react-router-dom";
 
 const Lists = [
     { id: 1, text: "Home", url: "/" },
-    { id: 2, text: "Products", url: "/products" },
-    { id: 3, text: "My Cart", url: "/cart" },
+    { id: 2, text: "Products", url: "/admin-dashboard-product" },
+    { id: 3, text: "Users", url: "/admin-dashboard" },
 ];
 
-const NavbarList = () => {
+const NavbarListForAdmin = () => {
     return (
         <>
             {Lists.map((list) => {
@@ -22,4 +21,4 @@ const NavbarList = () => {
     );
 };
 
-export default NavbarList;
+export default NavbarListForAdmin;
