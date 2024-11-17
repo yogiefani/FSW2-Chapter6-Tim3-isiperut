@@ -1,106 +1,67 @@
 import React from "react";
 
 const Testimoni = () => {
-  const testimonials = [
-    {
-      name: "John Doe",
-      image: "/path-to-image/john.jpg",
-      text: "This is an amazing service! I highly recommend it.",
-    },
-    {
-      name: "Jane Smith",
-      image: "/path-to-image/jane.jpg",
-      text: "A truly wonderful experience. I will definitely come back!",
-    },
-    {
-      name: "Alice Johnson",
-      image: "/path-to-image/alice.jpg",
-      text: "Fantastic support and quality. Five stars!",
-    },
-    {
-      name: "Bob Brown",
-      image: "/path-to-image/bob.jpg",
-      text: "They exceeded my expectations. Great job!",
-    },
-    {
-      name: "Emily Davis",
-      image: "/path-to-image/emily.jpg",
-      text: "Professional and reliable. Couldn't ask for more.",
-    },
-  ];
-
   return (
-    <div id="controls-carousel" className="relative w-full" data-carousel="static">
-      {/* Carousel wrapper */}
-      <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
-        {testimonials.map((testimonial, index) => (
-          <div
-            key={index}
-            className={`${
-              index === 0 ? "block" : "hidden"
-            } duration-700 ease-in-out`}
-            data-carousel-item={index === 0 ? "active" : ""}
-          >
-            <div className="flex flex-col items-center justify-center h-full text-center">
-              <img
-                src={testimonial.image}
-                alt={`${testimonial.name} photo`}
-                className="w-16 h-16 mb-4 rounded-full"
-              />
-              <p className="text-lg font-semibold text-gray-800">{testimonial.text}</p>
-              <span className="mt-2 text-sm text-gray-600">- {testimonial.name}</span>
-            </div>
+    <section className="relative isolate overflow-hidden font-karla bg-gradient-to-r from-gray-100 to-gray-300 px-6 py-18 sm:py-24 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal text-gray-800 mt-6 mb-20 text-center">
+          What Customers Say?
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Card 1 */}
+          <div className="bg-white rounded-3xl shadow-lg p-6 text-center flex flex-col items-center">
+            <img
+              className="w-24 h-24 rounded-full mb-4"
+              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+              alt="Judith Black"
+            />
+            <blockquote className="text-gray-800 text-lg italic mb-4">
+              “Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo expedita voluptas culpa sapiente alias molestiae.”
+            </blockquote>
+            <figcaption>
+              <h3 className="text-base font-semibold text-gray-900">
+                Judith Black
+              </h3>
+              <p className="text-sm text-gray-600">CEO of Workcation</p>
+            </figcaption>
           </div>
-        ))}
+
+          {/* Card 2 */}
+          <div className="bg-white rounded-3xl shadow-lg p-6 text-center flex flex-col items-center">
+            <img
+              className="w-24 h-24 rounded-full mb-4"
+              src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+              alt="John Doe"
+            />
+            <blockquote className="text-gray-800 text-lg italic mb-4">
+              “Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo expedita voluptas culpa sapiente alias molestiae.”
+            </blockquote>
+            <figcaption>
+              <h3 className="text-base font-semibold text-gray-900">Mariana</h3>
+              <p className="text-sm text-gray-600">Freelancer</p>
+            </figcaption>
+          </div>
+
+          {/* Card 3 */}
+          <div className="bg-white rounded-3xl shadow-lg p-6 text-center flex flex-col items-center">
+            <img
+              className="w-24 h-24 rounded-full mb-4"
+              src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+              alt="Alice Lee"
+            />
+            <blockquote className="text-gray-800 text-lg italic mb-4">
+              “Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo expedita voluptas culpa sapiente alias molestiae.”
+            </blockquote>
+            <figcaption>
+              <h3 className="text-base font-semibold text-gray-900">
+                John Doe
+              </h3>
+              <p className="text-sm text-gray-600">Designer</p>
+            </figcaption>
+          </div>
+        </div>
       </div>
-      {/* Slider controls */}
-      <button
-        type="button"
-        className="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-        data-carousel-prev
-      >
-        <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-          <svg
-            className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 6 10"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M5 1 1 5l4 4"
-            />
-          </svg>
-          <span className="sr-only">Previous</span>
-        </span>
-      </button>
-      <button
-        type="button"
-        className="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-        data-carousel-next
-      >
-        <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-          <svg
-            className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 6 10"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="m1 9 4-4-4-4"
-            />
-          </svg>
-          <span className="sr-only">Next</span>
-        </span>
-      </button>
-    </div>
+    </section>
   );
 };
 
