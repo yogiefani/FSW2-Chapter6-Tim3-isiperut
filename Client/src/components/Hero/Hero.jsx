@@ -2,7 +2,7 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <div className="bg-red-700 flex items-center py-20">
+    <div className="bg-red-700 flex items-center py-20 font-karla">
       <div className="container mx-auto grid grid-cols-12 gap-6 items-center px-6 lg:px-12">
         <div className="col-span-12 lg:col-span-6 flex justify-center lg:justify-end">
           <img
@@ -19,7 +19,7 @@ const Hero = () => {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse blandit placerat ex, vitae accumsan enim semper eget. Vestibulum ut commodo est, id semper augue.
           </p>
           <div className="flex justify-center lg:justify-start">
-            <button className="btn bg-custom-orange text-white font-semibold rounded-full px-8 text-sm sm:text-base lg:text-lg shadow-lg hover:bg-orange-600 transition duration-300">
+            <button className="btn bg-custom-orange text-white border-none font-semibold rounded-full px-8 text-sm sm:text-base lg:text-lg shadow-lg hover:bg-orange-600 transition duration-300">
               Order Now
             </button>
           </div>
