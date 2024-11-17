@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import NavbarListForAdmin from "./NavbarListForAdmin";
-import NavbarListForAdmin from "./NavbarListForAdmin";
 
 const NavbarForAdmin = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
