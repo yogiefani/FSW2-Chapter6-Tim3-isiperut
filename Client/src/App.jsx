@@ -19,15 +19,19 @@ import AdminEditProductView from "./pages/admin/AdminEditProductView";
 //loader
 import { loader as AdminHomeLoader } from "./pages/admin/AdminDashboardView";
 import { loader as AdminProductLoader } from "./pages/admin/AdminProductView";
+import { loader as HomeProductLoader } from "./pages/HomeView";
+import { loader as ProductProductLoader } from "./pages/ProductView";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeView />,
+    loader: HomeProductLoader,
   },
   {
     path: "/products",
     element: <ProductView />,
+    loader: ProductProductLoader,
   },
   {
     path: "/my-cart",
