@@ -6,23 +6,30 @@ const { Op } = require("sequelize");
 const createProduct = async (req, res) => {
   try {
     const { name, desc, price, stock, category } = req.body;
-    const file = req.file;
-    let photoProfile = null;
+
+    let image = null
+    if(req.file){
+      const file = req.file;
+
+      const split = file.originalname.split(".");
+      const ext = split[split.length - 1];
+      const filename = split[0];
+      const fileBuffer = file.buffer;
+      const fileName = `Product-${filename}-${Date.now()}.${ext}`;
+
+      const uploadedFile = await imagekit.upload({
+          file: fileBuffer,
+          fileName: fileName,
+      });
+
+      image = uploadedFile.url;
+    }
 
     if (!name || !desc || !price || !stock || !category) {
       res.status(400);
       throw new Error(
         "Please provide name, description, price, stock, and category"
       );
-    }
-
-    // Handle image upload if a file is provided
-    if (file) {
-      const uploadedImage = await imagekit.upload({
-        file: file.buffer,
-        fileName: file.originalname,
-      });
-      photoProfile = uploadedImage.url;
     }
 
     // Create a new product
@@ -32,7 +39,7 @@ const createProduct = async (req, res) => {
       price,
       stock,
       category,
-      photoProfile,
+      image,
     });
 
     res.status(201).json({

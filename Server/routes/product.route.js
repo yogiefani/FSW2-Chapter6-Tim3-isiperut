@@ -1,6 +1,7 @@
 const router = require("express").Router();
 
-const { productController } = require("../controllers");
+const { productController } = require("../controllers")
+const upload = require("../utils/upload");
 // const {
 //   protectedMiddleware,
 //   adminMiddleware,
@@ -10,7 +11,7 @@ const { productController } = require("../controllers");
 router.get("/all", productController.getAllProducts);
 router.get("", productController.getAllProductsNoDeleted);
 router.get("/:id", productController.getProductById);
-router.post("", productController.createProduct);
+router.post("", upload.single('image'), productController.createProduct);
 router.patch("/:id", productController.updateProduct);
 router.delete("/:id", productController.deleteProduct);
 
