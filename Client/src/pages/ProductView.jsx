@@ -1,4 +1,11 @@
+import Navbar from "../components/Navbar/Navbar";
+
 function ProductView() {
-  return <h1>Product View</h1>;
+  return (
+    <>
+      <Navbar />
+      <div>Content Product</div>
+    </>
+  );
 }
 export default ProductView;
