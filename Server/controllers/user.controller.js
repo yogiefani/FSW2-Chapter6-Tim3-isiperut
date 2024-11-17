@@ -13,21 +13,29 @@ const createUser = async (req, res) => {
             phone,
             role = "user",
         } = req.body;
-        const file = req.file;
-        console.log(file);
+
+        let imageUrl = null;
+
+        if (req.file) {
+            const file = req.file;
+
+            const split = file.originalname.split(".");
+            const ext = split[split.length - 1];
+            const filename = split[0];
+            const fileBuffer = file.buffer;
+            const fileName = `Product-${filename}-${Date.now()}.${ext}`;
+
+            const uploadedFile = await imagekit.upload({
+                file: fileBuffer,
+                fileName: fileName,
+            });
+
+            imageUrl = uploadedFile.url;
+        }
 
         if (!name || !email || !password) {
             res.status(400);
             throw new Error("Please provide name, email, and password");
-        }
-
-        let photoProfile = null;
-        if (file) {
-            const uploadedImage = await imagekit.upload({
-                file: file.buffer,
-                fileName: file.originalname,
-            });
-            photoProfile = uploadedImage.url;
         }
 
         const newUser = await users.create({
@@ -37,7 +45,7 @@ const createUser = async (req, res) => {
             address,
             phone,
             role,
-            photoProfile,
+            photoProfile: imageUrl,
         });
 
         res.status(201).json({

@@ -1,9 +1,10 @@
-import { redirect, useLoaderData } from "react-router-dom";
+import { Link, redirect, useLoaderData } from "react-router-dom";
 import axiosInstance from "../../api/axiosInstance";
 import CardUser from "../../components/Card/CardUser";
 import NavbarForAdmin from "../../components/Navbar/NavbarForAdmin";
 import { checkAccess } from "../../middlewares/Auth";
 import CardProduct from "../../components/Card/CardProduct";
+import Footer from "../../components/Footer/Footer";
 
 export const loader = async () => {
   //middleware buat check yang login role admin apa bukan
@@ -24,8 +25,9 @@ function AdminDashboard() {
     return (
         <>
             <NavbarForAdmin />
-            <div className="m-5 mt-20">
+            <div className="m-5 mt-8 flex flex-col">
                 <h1 className="text-4xl font-semibold text-left">Our Active Users</h1>
+                <Link className="btn btn-primary w-32 mt-8" to='/products'>Create</Link>
             </div>
             <div className="m-5 grid md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {users.slice(1).map((user) => (
@@ -41,6 +43,7 @@ function AdminDashboard() {
                     />
                 ))}
             </div>
+            <Footer />
         </>
     );
 }

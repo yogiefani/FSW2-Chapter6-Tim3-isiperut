@@ -31,7 +31,7 @@ const items = [
 const Footer = () => {
   return (
     <>
-      <footer className="bg-custom-black text-custom-white h-auto font-karla">
+      <footer className="bg-custom-black text-custom-white h-auto font-karla mt-10">
         <div className="footer container mx-auto p-20 gap-x-14 text-left">
           <aside>
             <img src="src/assets/logo.png" alt="Logo" className="mb-6" />
