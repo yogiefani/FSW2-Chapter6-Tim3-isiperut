@@ -1,5 +1,6 @@
 const { products } = require("../models"); // import the products model
 const imagekit = require("../lib/imagekit");
+const { Op } = require("sequelize");
 
 // Create a new product
 const createProduct = async (req, res) => {
@@ -67,6 +68,7 @@ const getAllProducts = async (req, res) => {
       limit: limit,
       offset: offset,
       paranoid: false, // Include soft-deleted products
+      order: [['deletedAt', 'DESC']],
     });
 
     return res.status(200).json({
@@ -90,6 +92,53 @@ const getAllProducts = async (req, res) => {
     });
   }
 };
+
+const getAllProductsNoDeleted = async (req, res) => {
+  try {
+    const { name, price, stock, category } = req.query;
+
+    const condition = {}
+
+    if (name) condition.name = { [Op.iLike]: `%${name}%` }
+    if (price) condition.price = { [Op.lte]: price }
+    if (stock) condition.stock = { [Op.gte]: stock }
+    if (category) condition.category = category
+
+    const page = parseInt(req.query.page) || 1; // Default to page 1
+    const limit = parseInt(req.query.limit) || 10; // Default to 10 products per page
+    const offset = (page - 1) * limit;
+
+    const totalProducts = await products.count();
+    const totalPages = Math.ceil(totalProducts / limit);
+
+    const allProducts = await products.findAll({
+      limit: limit,
+      offset: offset,
+      order: [['id', 'ASC']],
+    });
+
+    return res.status(200).json({
+      status: "Success",
+      message: "Success to get products",
+      isSuccess: true,
+      data: allProducts,
+      pagination: {
+        totalProducts,
+        totalPages,
+        currentPage: page,
+        productsPerPage: limit,
+      },
+    });
+
+  } catch (error) {
+    return res.status(500).json({
+      status: "Failed",
+      message: "Failed to get products",
+      isSuccess: false,
+      data: null,
+    });
+  }
+}
 
 // Get a single product by ID
 const getProductById = async (req, res) => {
@@ -190,6 +239,7 @@ const deleteProduct = async (req, res) => {
 module.exports = {
   createProduct,
   getAllProducts,
+  getAllProductsNoDeleted,
   getProductById,
   updateProduct,
   deleteProduct,

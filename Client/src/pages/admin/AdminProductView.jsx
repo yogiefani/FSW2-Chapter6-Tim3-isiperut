@@ -4,6 +4,7 @@ import CardUser from "../../components/Card/CardUser";
 import NavbarForAdmin from "../../components/Navbar/NavbarForAdmin";
 import { checkAccess } from "../../middlewares/Auth";
 import CardProduct from "../../components/Card/CardProduct";
+import Footer from "../../components/Footer/Footer";
 
 export const loader = async () => {
   //middleware buat check yang login role admin apa bukan
@@ -16,7 +17,7 @@ export const loader = async () => {
   const response = await axiosInstance.get("/users");
   const users = response.data.data;
 
-  const productsData = await axiosInstance.get("/products");
+  const productsData = await axiosInstance.get("/products/all");
   const products = productsData.data.data;
 
   return { users, products };
@@ -45,6 +46,7 @@ function AdminProductDashboard() {
           />
         ))}
       </div>
+      <Footer />
     </>
   );
 }

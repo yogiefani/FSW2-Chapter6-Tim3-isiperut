@@ -5,9 +5,17 @@ import FormInput from "../../components/Form/FormInput";
 import FormSelect from "../../components/Form/FormSelect";
 import NavbarForAdmin from "../../components/Navbar/NavbarForAdmin";
 import { toast } from "react-toastify";
+import Footer from "../../components/Footer/Footer";
 
 const AdminEditProductView = () => {
   const [product, setProduct] = useState(null);
+  const [productImage, setProductImage] = useState("");
+
+  const handleImage = (e) => {
+    const link = e.target.value;
+    setProductImage(link);
+  }
+
   const navigate = useNavigate();
 
   const categories = ["food", "drink"];
@@ -17,6 +25,7 @@ const AdminEditProductView = () => {
     try {
       const response = await axiosInstance.get(`/products/${id}`);
       setProduct(response.data.data);
+      setProductImage(response.data.data.image);
     } catch (err) {
       setError("Error fetching product data");
     }
@@ -68,23 +77,14 @@ const AdminEditProductView = () => {
             <div className="w-40 rounded-full">
               <img
                 src={
-                  product.image
-                    ? product.image
-                    : "https://ik.imagekit.io/9h1gnwzay/default-image.jpg?updatedAt=1728904313272"
+                  productImage
                 }
                 alt=""
               />
             </div>
           </div>
-          <FormInput
-            label={"Product Image"}
-            name={"image"}
-            defaultValue={
-              product.image
-                ? product.image
-                : "https://ik.imagekit.io/9h1gnwzay/default-image.jpg?updatedAt=1728904313272"
-            }
-          />
+          <label className="text-left -mb-1">Product Image</label>
+          <input type="text" name="image" className="input input-bordered" value={productImage} onChange={handleImage} />
           <FormInput
             label={"Product Name"}
             name={"name"}
@@ -118,6 +118,7 @@ const AdminEditProductView = () => {
           </div>
         </Form>
       </div>
+      <Footer />
     </>
   );
 };

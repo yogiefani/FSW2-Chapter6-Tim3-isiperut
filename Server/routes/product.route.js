@@ -7,7 +7,8 @@ const { productController } = require("../controllers");
 //   superAdminMiddleware,
 // } = require("../middlewares/auth.middleware");
 
-router.get("", productController.getAllProducts);
+router.get("/all", productController.getAllProducts);
+router.get("", productController.getAllProductsNoDeleted);
 router.get("/:id", productController.getProductById);
 router.post("", productController.createProduct);
 router.patch("/:id", productController.updateProduct);
