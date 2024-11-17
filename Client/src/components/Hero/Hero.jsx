@@ -2,7 +2,7 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <div className="bg-red-700 flex items-center py-20 font-karla">
+    <div className="bg-[#C03822] flex items-center py-20 font-karla">
       <div className="container mx-auto grid grid-cols-12 gap-6 items-center px-6 lg:px-12">
         <div className="col-span-12 lg:col-span-6 flex justify-center lg:justify-end">
           <img

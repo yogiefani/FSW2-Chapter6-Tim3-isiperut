@@ -4,7 +4,9 @@ import Hero from "../components/Hero/Hero";
 import Navbar from "../components/Navbar/Navbar";
 import NavbarForAdmin from "../components/Navbar/NavbarForAdmin";
 import ProductSection from "../components/ProductSection/ProductSection";
-import Container3 from "../components/ProductSection/Container3";
+import FeaturesSection from "../components/ProductSection/FeaturesSection";
+import OnlineOrder from "../components/ProductSection/OnlineOrder";
+import ProductAdvantages from "../components/ProductSection/ProductAdvantages";
 
 function HomeView() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -31,7 +33,9 @@ function HomeView() {
       {isAdmin ? <NavbarForAdmin /> : <Navbar />}
       <Hero/>
       <ProductSection/>
-      <Container3/>
+      <ProductAdvantages/>
+      <FeaturesSection/>
+      <OnlineOrder/>
       <Footer />
     </>
   );
