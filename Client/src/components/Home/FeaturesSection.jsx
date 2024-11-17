@@ -2,7 +2,7 @@ import React from "react";
 
 const FeaturesSection = () => {
   return (
-    <div className="bg-gray-50 pt-8 pb-20">
+    <div className="bg-gray-100 pt-8 pb-20">
       <div className="container mx-auto px-6 lg:px-12 text-center">
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal text-gray-800 mb-12">
           Taste the Xabite's Difference!

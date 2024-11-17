@@ -3,10 +3,11 @@ import Footer from "../components/Footer/Footer";
 import Hero from "../components/Hero/Hero";
 import Navbar from "../components/Navbar/Navbar";
 import NavbarForAdmin from "../components/Navbar/NavbarForAdmin";
-import ProductSection from "../components/ProductSection/ProductSection";
-import FeaturesSection from "../components/ProductSection/FeaturesSection";
-import OnlineOrder from "../components/ProductSection/OnlineOrder";
-import ProductAdvantages from "../components/ProductSection/ProductAdvantages";
+import ProductSection from "../components/Home/Highligth";
+import FeaturesSection from "../components/Home/FeaturesSection";
+import OnlineOrder from "../components/Home/OnlineOrder";
+import ProductAdvantages from "../components/Home/ProductAdvantages";
+import Menu from "../components/Home/Menu";
 
 function HomeView() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -36,6 +37,7 @@ function HomeView() {
       <ProductAdvantages/>
       <FeaturesSection/>
       <OnlineOrder/>
+      <Menu/>
       <Footer />
     </>
   );

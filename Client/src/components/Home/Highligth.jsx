@@ -1,9 +1,9 @@
 import React from "react";
 
-const ProductSection = () => {
+const Highlight = () => {
   return (
     <>
-    <div className="bg-slate-100">
+    <div className="bg-gray-200">
       <div className="relative pt-32 pb-12">
         <div className="absolute w-full -top-24">
           <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-6 lg:px-12">
@@ -122,4 +122,4 @@ const ProductSection = () => {
   );
 };
 
-export default ProductSection;
+export default Highlight;

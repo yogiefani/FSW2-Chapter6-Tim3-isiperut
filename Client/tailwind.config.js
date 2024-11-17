@@ -15,12 +15,12 @@ export default {
         "custom-orange": "#FE9B19",
       },
       backgroundImage: {
-        'bg-img': "url('/images/Background.png')"
-       }
+        "bg-img": "url('/images/Background.png')",
+      },
     },
   },
   plugins: [require("daisyui")],
   daisyui: {
-    themes: ["dark"]
-  }
+    themes: ["dark"],
+  },
 };
