@@ -1,4 +1,11 @@
+import Navbar from "../components/Navbar/Navbar";
+
 function MyCartView() {
-  return <h1>My Cart</h1>;
+  return (
+    <>
+      <Navbar />
+      <div>Content Cart</div>
+    </>
+  );
 }
 export default MyCartView;
