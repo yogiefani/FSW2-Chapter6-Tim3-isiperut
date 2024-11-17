@@ -11,6 +11,7 @@ import Menu from "../components/Home/Menu";
 import OrderNow from "../components/Home/OrderNow";
 import Testimoni from "../components/Home/Testimoni";
 import NewMenu from "../components/Home/NewMenu";
+import BlogSection from "../components/Home/BlogSection";
 
 function HomeView() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -44,6 +45,7 @@ function HomeView() {
       <OrderNow/>
       <NewMenu/>
       <Testimoni/>
+      <BlogSection/>
       <Footer />
     </>
   );
