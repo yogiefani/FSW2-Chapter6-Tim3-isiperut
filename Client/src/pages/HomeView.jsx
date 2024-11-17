@@ -8,6 +8,7 @@ import FeaturesSection from "../components/Home/FeaturesSection";
 import OnlineOrder from "../components/Home/OnlineOrder";
 import ProductAdvantages from "../components/Home/ProductAdvantages";
 import Menu from "../components/Home/Menu";
+import OrderNow from "../components/Home/OrderNow";
 
 function HomeView() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -38,6 +39,7 @@ function HomeView() {
       <FeaturesSection/>
       <OnlineOrder/>
       <Menu/>
+      <OrderNow/>
       <Footer />
     </>
   );

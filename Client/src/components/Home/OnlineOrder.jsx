@@ -6,7 +6,7 @@ const OnlineOrder = () => {
       <div className="py-28">
         <div className="w-full">
           <div className="container mx-auto text-center">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal text-white mt-5 mb-20">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal text-white mt-3 mb-20">
               How to Online Order?
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6">
