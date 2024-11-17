@@ -1,11 +1,14 @@
 import Footer from "../components/Footer/Footer";
+import Hero from "../components/Hero/Hero";
 import Navbar from "../components/Navbar/Navbar";
+import ProductSection from "../components/ProductSection/ProductSection";
 
 function HomeView() {
   return (
     <>
       <Navbar />
-      <h1>Home</h1>
+      <Hero />
+      <ProductSection/>
       <Footer />
     </>
   );
