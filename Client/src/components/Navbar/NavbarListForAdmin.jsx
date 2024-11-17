@@ -2,8 +2,8 @@ import { NavLink } from "react-router-dom";
 
 const Lists = [
   { id: 1, text: "Home", url: "/" },
-  { id: 2, text: "Products", url: "/admin-dashboard" },
-  { id: 3, text: "Users", url: "/admin-dashboard-user" },
+  { id: 2, text: "Products", url: "/admin-dashboard-product" },
+  { id: 3, text: "Users", url: "/admin-dashboard" },
 ];
 
 const NavbarListForAdmin = () => {

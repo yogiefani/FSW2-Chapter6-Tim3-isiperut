@@ -6,7 +6,7 @@ export const checkAccess = async () => {
         console.log(response)
         return response.data.data.role === "admin"; // Return true if the role is admin
     } catch (error) {
-        if (error.response && error.response.status === 401) {
+        if (error.response || error.response.status === 401) {
             console.log("Unauthorized, redirecting to login...");
             return false; // Unauthorized access
         }

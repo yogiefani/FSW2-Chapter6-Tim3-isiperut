@@ -8,7 +8,13 @@ import { toast } from "react-toastify";
 
 const AdminEditUserView = () => {
     const [user, setUser] = useState(null);
+    const [photoProfile, setPhotoProfile] = useState('');
     const navigate = useNavigate();
+
+    const handlePhoto = (e)=> {
+        const link = e.target.value;
+        setPhotoProfile(link);
+    }
 
     const roles = ["admin", "user"];
 
@@ -17,6 +23,7 @@ const AdminEditUserView = () => {
         try {
             const response = await axiosInstance.get(`/users/${id}`);
             setUser(response.data.data);
+            setPhotoProfile(response.data.data.photoProfile);
         } catch (err) {
             setError("Error fetching product data");
         }
@@ -63,23 +70,14 @@ const AdminEditUserView = () => {
                         <div className="w-40 rounded-full">
                             <img
                                 src={
-                                    user.photoProfile
-                                        ? user.photoProfile
-                                        : "https://ik.imagekit.io/9h1gnwzay/default-image.jpg?updatedAt=1728904313272"
+                                    photoProfile
                                 }
                                 alt=""
                             />
                         </div>
                     </div>
-                    <FormInput
-                        label={"Photo Profile"}
-                        name={"photoProfile"}
-                        defaultValue={
-                            user.photoProfile
-                                ? user.photoProfile
-                                : "https://ik.imagekit.io/9h1gnwzay/default-image.jpg?updatedAt=1728904313272"
-                        }
-                    />
+                    <label className="text-left -mb-2">Photo Profile Link</label>
+                    <input type="text" name="photoProfile" className="input input-bordered" value={photoProfile} onChange={handlePhoto} />
                     <FormInput
                         label={"Name"}
                         name={"name"}
