@@ -1,3 +1,6 @@
+import { useLoaderData } from "react-router-dom";
+import axiosInstance from "../api/axiosInstance";
+import CardProduct from "../components/Card/CardProduct";
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer/Footer";
 import Hero from "../components/Hero/Hero";
@@ -12,25 +15,34 @@ import OrderNow from "../components/Home/OrderNow";
 import Testimoni from "../components/Home/Testimoni";
 import NewMenu from "../components/Home/NewMenu";
 import BlogSection from "../components/Home/BlogSection";
+import { checkAccess } from "../middlewares/auth";
+
+export const loader = async () => {
+  const response = await axiosInstance.get("/users");
+  const users = response.data.data;
+
+  const productsData = await axiosInstance.get("/products/all");
+  const products = productsData.data.data;
+
+  return { users, products };
+};
 
 function HomeView() {
+  const { products } = useLoaderData();
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const checkUserRole = () => {
-      const userData = localStorage.getItem("user");
-      if (userData) {
-        try {
-          const parsedUser = JSON.parse(userData);
-          setIsAdmin(parsedUser.role === "admin");
-        } catch (error) {
-          console.error("Error parsing user data:", error);
-          setIsAdmin(false);
-        }
+    const verifyAdmin = async () => {
+      try {
+        const isAdminUser = await checkAccess();
+        setIsAdmin(isAdminUser);
+      } catch (error) {
+        console.error("Error checking admin access:", error);
+        setIsAdmin(false);
       }
     };
 
-    checkUserRole();
+    verifyAdmin();
   }, []);
 
   return (
@@ -46,6 +58,14 @@ function HomeView() {
       <NewMenu/>
       <Testimoni/>
       <BlogSection/>
+      <div className="m-5 mt-8">
+        <h1 className="text-4xl font-semibold text-left">Product On Sales</h1>
+      </div>
+      <div className="m-5 grid md:grid-cols-3 lg:grid-cols-4 gap-y-10">
+        {products.map((product) => (
+          <CardProduct key={product.id} id={product.id} image={product.image} name={product.name} description={product.desc} price={product.price} stock={product.stock} category={product.category} deletedAt={product.deletedAt} />
+        ))}
+      </div>
       <Footer />
     </>
   );
