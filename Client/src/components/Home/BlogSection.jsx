@@ -1,86 +1,121 @@
 import React from "react";
 
-const BlogSection = () => {
+const BlogContainer = () => {
   return (
-    <section className="bg-white dark:bg-gray-900">
-      <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-        {/* Grid Layout */}
-        <div className="grid grid-cols-4 gap-6 items-start">
-          {/* Title */}
-          <div className="col-span-2">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal text-gray-800 mt-6 mb-20 text-left">
-            Fresh Flavors, Fresh Stories <br/>
-            Explore Our Blog!
+    <div className="bg-gray-100 pt-8 pb-20">
+      <div className="container mx-auto px-6 lg:px-12">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal text-gray-800 mt-6 mb-20 text-center">
+            Fresh Flavors, Fresh Stories
           </h2>
-          </div>
-          {/* Blog Post 2 */}
-          <div className="col-span-1 bg-orange-200 p-6 rounded-lg shadow-md">
-            <article>
-              <span className="text-sm font-medium text-red-600">June 01, 2024</span>
-              <h3 className="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
-                Healthy Week: Try Xabite's New Salad Creations!
-              </h3>
-            </article>
-          </div>
-          {/* Blog Post 3 */}
-          <div className="col-span-1 bg-yellow-200 p-6 rounded-lg shadow-md">
-            <article>
-              <span className="text-sm font-medium text-red-600">June 01, 2024</span>
-              <h3 className="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
-                Xabite's New Menu Delights: Fresh Flavors Await!
-              </h3>
-            </article>
-          </div>
-          {/* Main Blog Post */}
-          <div className="col-span-2 bg-red-200 p-6 rounded-lg shadow-md">
-            <article>
-              <span className="text-sm font-medium text-red-600">June 01, 2024</span>
-              <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Featured Blog */}
+          <div className="lg:col-span-2 row-span-2 text-left">
+            <div className="bg-black rounded-t-3xl p-8 shadow-md">
+              <span className="bg-red-500 text-white text-sm px-4 py-1 rounded-full">
+                June 01, 2024
+              </span>
+              <img
+                src="/images/Burger.png"
+                alt="Burger"
+                className="w-full h-auto rounded-t-3xl mt-4"
+              />
+            </div>
+            <div className="bg-white rounded-b-3xl p-8 shadow-md">
+              <h3 className="text-2xl font-bold text-gray-800 mb-4">
                 Behind the Scenes: Crafting the Perfect Burger at Xabite!
-              </h2>
-              <p className="mb-5 font-light text-gray-500 dark:text-gray-400">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse blandit placerat ex, vitae accumsan enim semper eget.
+              </h3>
+              <p className="text-gray-600">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Suspendisse blandit placerat ex, vitae accumsan enim semper eget.
               </p>
-              <a
-                href="#"
-                className="inline-flex items-center font-medium text-primary-600 dark:text-primary-500 hover:underline"
-              >
-                Read more
-              </a>
-            </article>
+            </div>
           </div>
-          {/* Blog Post 4 */}
-          <div className="col-span-1 bg-orange-200 p-6 rounded-lg shadow-md">
-            <article>
-              <span className="text-sm font-medium text-red-600">June 01, 2024</span>
-              <h3 className="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
-                Seasonal Surprises: Taste the Latest Specials at Xabite!
-              </h3>
-            </article>
-          </div>
-          {/* Blog Post 5 */}
-          <div className="col-span-1 bg-yellow-200 p-6 rounded-lg shadow-md">
-            <article>
-              <span className="text-sm font-medium text-red-600">June 01, 2024</span>
-              <h3 className="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
+
+          {/* Additional Blogs */}
+          <div className="grid grid-cols-2 lg:grid-cols-2 col-span-2 gap-6">
+            {/* Blog 1 */}
+            <div className="col-span-1">
+              <div className="bg-black rounded-t-3xl p-8 shadow-md">
+                <span className="bg-red-500 text-white text-sm px-4 py-1 rounded-full">
+                  June 01, 2024
+                </span>
+                <img
+                  src="/images/Burger.png"
+                  alt="Burger"
+                  className="w-full h-auto rounded-t-3xl mt-4"
+                />
+              </div>
+              <div className="bg-white rounded-b-3xl p-6 shadow-md text-left">
+                <h3 className="text-lg font-semibold text-gray-800">
+                  Healthy Week: <br/> Try Xabite's New Salad Creations!
+                </h3>
+              </div>
+            </div>
+
+            {/* Blog 2 */}
+            <div className="col-span-1">
+              <div className="bg-black rounded-t-3xl p-8 shadow-md">
+                <span className="bg-red-500 text-white text-sm px-4 py-1 rounded-full">
+                  June 01, 2024
+                </span>
+                <img
+                  src="/images/Burger.png"
+                  alt="Burger"
+                  className="w-full h-auto rounded-t-3xl mt-4"
+                />
+              </div>
+              <div className="bg-white rounded-b-3xl p-6 shadow-md text-left">
+                <h3 className="text-lg font-semibold text-gray-800">
+                  Xabite's New Menu Delights: Fresh Flavors Await!
+                </h3>
+              </div>
+            </div>
+
+            {/* Blog 3 */}
+            <div className="col-span-1">
+              <div className="bg-black rounded-t-3xl p-8 shadow-md">
+                <span className="bg-red-500 text-white text-sm px-4 py-1 rounded-full">
+                  June 01, 2024
+                </span>
+                <img
+                  src="/images/Burger.png"
+                  alt="Burger"
+                  className="w-full h-auto rounded-t-3xl mt-4"
+                />
+              </div>
+              <div className="bg-white rounded-b-3xl p-6 shadow-md text-left">
+                <h3 className="text-lg font-semibold text-gray-800">
+                  Seasonal Surprises: Taste the Latest Specials at Xabite!
+                </h3>
+              </div>
+            </div>
+
+            {/* Blog 4 */}
+            <div className="col-span-1">
+              <div className="bg-black rounded-t-3xl p-8 shadow-md">
+                <span className="bg-red-500 text-white text-sm px-4 py-1 rounded-full">
+                  June 01, 2024
+                </span>
+                <img
+                  src="/images/Burger.png"
+                  alt="Burger"
+                  className="w-full h-auto rounded-t-3xl mt-4"
+                />
+              </div>
+              <div className="bg-white rounded-b-3xl p-6 shadow-md text-left">
+                <h3 className="text-lg font-semibold text-gray-800">
                 Customer Spotlight: Why Xabite Fans Can't Get Enough!
-              </h3>
-            </article>
+                </h3>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
-export default BlogSection;
-
-
-{/* <div class="grid grid-rows-3 grid-flow-col gap-4">
-  Judul 
-  <div class="bg-red-200 row-start-2 row-span-5 col-span-4...">1</div>
-  <div class="bg-orange-200 row-span-3 col-span-2  ...">2</div>
-  <div class="bg-yellow-200 row-span-3 col-span-2 ...">3</div>
-  <div class="bg-orange-200 row-span-3 col-span-2  ...">4</div>
-  <div class="bg-yellow-200 row-span-3 col-span-2 ...">5</div>
-</div> */}
+export default BlogContainer;
