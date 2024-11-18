@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../api/axiosInstance";
 import Navbar from "../components/Navbar/Navbar";
+import NavbarForAdmin from "../components/Navbar/NavbarForAdmin";
 import Footer from "../components/Footer/Footer";
 
 const ProfileView = () => {
@@ -42,9 +43,13 @@ const ProfileView = () => {
     );
   }
 
+  const renderNavbar = () => {
+    return user?.role === "admin" ? <NavbarForAdmin /> : <Navbar />;
+  };
+
   return (
     <>
-      <Navbar />
+      {renderNavbar()}
       <div className="min-h-screen bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 py-12">
           <div className="bg-gradient-to-r from-[#C03822] to-[#A02812] text-white rounded-xl p-8 mb-8">
