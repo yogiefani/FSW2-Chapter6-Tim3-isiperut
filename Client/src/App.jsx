@@ -24,6 +24,7 @@ import { loader as AdminHomeLoader } from "./pages/admin/AdminDashboardView";
 import { loader as AdminProductLoader } from "./pages/admin/AdminProductView";
 import { loader as HomeProductLoader } from "./pages/HomeView";
 import { loader as ProductProductLoader } from "./pages/ProductView";
+import { loader as MyCartLoader } from "./pages/MyCartView";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,7 @@ const router = createBrowserRouter([
         <MyCartView />
       </PrivateRoute>
     ),
+    loader: MyCartLoader,
   },
   {
     path: "/profile",
