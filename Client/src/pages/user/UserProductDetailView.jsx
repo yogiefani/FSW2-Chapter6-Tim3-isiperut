@@ -33,14 +33,14 @@ function ProductDetails() {
     <>
       <Navbar />
       <div className="grid-cols-3 grid p-4 gap-4 justify-evenly">
-        <div>
+        <div className="max-h-[300px] overflow-hidden rounded-xl">
           <img
             src={product.image}
             alt={product.name}
-            className="w-full object-cover rounded-xl"
+            className="w-full h-full object-cover rounded-xl"
           />
         </div>
-        <div>
+        <div className="text-left">
           <h1 className="text-4xl font-bold mb-5">{product.name}</h1>
           <div className="flex flex-col md:flex-row gap-5">
             <div className="flex flex-col gap-4">
@@ -56,8 +56,9 @@ function ProductDetails() {
             </div>
           </div>
         </div>
-        <div>
-          <div className="flex gap-2 items-center">
+        <div className="card card-bordered border-4 flex flex-col justify-center items-center h-full">
+          {/* Quantity Input and Available Stock */}
+          <div className="flex gap-2 items-center justify-center">
             <label htmlFor="quantity" className="font-bold">
               Jumlah Produk:
             </label>
@@ -70,7 +71,25 @@ function ProductDetails() {
               onChange={(e) => setQuantity(Number(e.target.value))}
               className="input input-bordered w-20"
             />
+            <span className="text-sm font-light">
+              Produk Tersedia: {product.stock}
+            </span>
           </div>
+
+          {/* Total Price */}
+          <div className="text-lg font-bold text-primary mt-4">
+            Total:
+            {quantity * product.price
+              ? (quantity * product.price)
+                  .toLocaleString("us-US", {
+                    style: "currency",
+                    currency: "USD",
+                  })
+                  .replace(/^\$/, "") // Remove the extra $ symbol added by toLocaleString
+              : "0.00"}
+          </div>
+
+          {/* Add to Cart Button */}
           <button
             onClick={addToCart}
             className="btn btn-primary mt-4"
