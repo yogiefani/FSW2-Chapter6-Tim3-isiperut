@@ -66,6 +66,55 @@ const MyCartView = () => {
     }
   };
 
+  const updateCartItem = async (itemId, newAmount) => {
+    try {
+      const currentItem = cartItems.find((cartItem) => cartItem.id === itemId);
+      if (!currentItem) {
+        throw new Error("Item not found in cart");
+      }
+  
+      const updatedAmount = Number(newAmount);
+  
+      if (updatedAmount < 1) {
+        // Tampilkan konfirmasi penghapusan jika jumlah kurang dari 1
+        const result = await Swal.fire({
+          title: "Remove item?",
+          text: "Do you want to remove this item from your cart?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Yes",
+          cancelButtonText: "No",
+        });
+  
+        if (result.isConfirmed) {
+          await deleteCartItem(itemId);
+        }
+        return;
+      }
+  
+      const updatedItem = {
+        amount: updatedAmount,
+        total: updatedAmount * currentItem.product.price,
+      };
+  
+      await axiosInstance.patch(`/carts/${itemId}`, updatedItem);
+  
+      setCartItems((prevItems) =>
+        prevItems.map((item) =>
+          item.id === itemId ? { ...item, ...updatedItem } : item
+        )
+      );
+    } catch (error) {
+      console.error("Error updating cart item:", error);
+      Swal.fire({
+        title: "Error!",
+        text: "Failed to update item quantity",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+    }
+  };
+  
   const handleCheckout = () => {
     Swal.fire({
       title: "Checkout Successful!",
@@ -144,7 +193,7 @@ const MyCartView = () => {
                   <div className="join">
                     <button
                       className="btn join-item"
-                      onClick={() => updateCartItem(item.id, item.amount - 1)}
+                      onClick={() => updateCartItem(item.id, Number(item.amount) - 1)}
                     >
                       <svg
                         width="22"
@@ -168,7 +217,7 @@ const MyCartView = () => {
                     />
                     <button
                       className="btn join-item"
-                      onClick={() => updateCartItem(item.id, item.amount + 1)}
+                      onClick={() => updateCartItem(item.id, Number(item.amount) + 1)}
                     >
                       <svg
                         width="22"
