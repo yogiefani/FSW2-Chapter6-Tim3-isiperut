@@ -7,6 +7,7 @@ import MyCartView from "./pages/MyCartView";
 import NotFoundView from "./pages/NotFoundView";
 import RegisterView from "./pages/RegisterView";
 import LoginView from "./pages/LoginView";
+import ProfileView from "./pages/ProfileView";
 // import { LoginPage } from "./page/LoginPage";
 // import { RegisterPage } from "./page/RegisterPage";
 
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
   {
     path: "/my-cart",
     element: <MyCartView />,
+  },
+  {
+    path: "/profile",
+    element: <ProfileView />,
   },
   {
     path: "/admin-dashboard",
