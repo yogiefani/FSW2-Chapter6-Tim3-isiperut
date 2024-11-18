@@ -47,7 +47,7 @@ const getCartByUser = async (req, res) => {
 
 const createCart = async (req, res) => {
   try {
-    const { amount, total, productId } = req.body;
+    const { amount, total, productId, userId } = req.body;
 
     if (!amount || !total || !productId) {
       return res.status(400).json({
@@ -58,7 +58,7 @@ const createCart = async (req, res) => {
       });
     }
 
-    userId = req.user.id;
+    // userId = req.user.id;
 
     const carts = await cart.create({
       amount,
@@ -74,6 +74,7 @@ const createCart = async (req, res) => {
       data: carts,
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({
       status: "Failed",
       message: error.message,
