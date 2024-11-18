@@ -2,11 +2,13 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // import AboutView from "./page/AboutView";
 import HomeView from "./pages/HomeView";
-import ProductView from "./pages/ProductView";
+import ProductView from "./pages/user/UserProductView";
+import ProductDetailView from "./pages/user/UserProductDetailView";
 import MyCartView from "./pages/MyCartView";
 import NotFoundView from "./pages/NotFoundView";
 import RegisterView from "./pages/RegisterView";
 import LoginView from "./pages/LoginView";
+import ProfileView from "./pages/ProfileView";
 // import { LoginPage } from "./page/LoginPage";
 // import { RegisterPage } from "./page/RegisterPage";
 
@@ -34,8 +36,16 @@ const router = createBrowserRouter([
     loader: ProductProductLoader,
   },
   {
+    path: "/product/:id",
+    element: <ProductDetailView />,
+  },
+  {
     path: "/my-cart",
     element: <MyCartView />,
+  },
+  {
+    path: "/profile",
+    element: <ProfileView />,
   },
   {
     path: "/admin-dashboard",
