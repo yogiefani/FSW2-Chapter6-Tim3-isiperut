@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import axiosInstance from "../../api/axiosInstance";
 import Navbar from "../../components/Navbar/Navbar";
+import { toast } from "react-toastify";
 
 function ProductDetails() {
   const { id } = useParams();
@@ -21,10 +22,32 @@ function ProductDetails() {
     fetchProduct();
   }, [id]);
 
-  const addToCart = () => {
-    // You can replace this with actual cart logic
-    console.log(`Added ${quantity} of ${product.name} to cart`);
-    alert(`${quantity} ${product.name}(s) added to cart!`);
+  const handleAddToCart = async () => {
+    try {
+      // Get the user object from localStorage
+      const user = JSON.parse(localStorage.getItem("user"));
+
+      if (!user || !user.id) {
+        toast.error("User not authenticated");
+        return;
+      }
+
+      const payload = {
+        amount: quantity,
+        total: quantity * product.price,
+        productId: product.id,
+        userId: user.id, // Use the user.id from the localStorage user object
+      };
+
+      const response = await axiosInstance.post(`/carts`, payload);
+
+      toast.success(
+        `Added ${payload.amount} ${product.name}(s) to cart. Total: $${payload.total}`
+      );
+    } catch (error) {
+      toast.error("Failed to add item to cart");
+      console.error(error);
+    }
   };
 
   if (!product) return <p>Loading...</p>;
@@ -91,7 +114,7 @@ function ProductDetails() {
 
           {/* Add to Cart Button */}
           <button
-            onClick={addToCart}
+            onClick={handleAddToCart}
             className="btn btn-primary mt-4"
             disabled={quantity < 1 || quantity > product.stock}
           >
