@@ -7,8 +7,8 @@ const createProduct = async (req, res) => {
   try {
     const { name, desc, price, stock, category } = req.body;
 
-    let image = null
-    if(req.file){
+    let image = null;
+    if (req.file) {
       const file = req.file;
 
       const split = file.originalname.split(".");
@@ -18,8 +18,8 @@ const createProduct = async (req, res) => {
       const fileName = `Product-${filename}-${Date.now()}.${ext}`;
 
       const uploadedFile = await imagekit.upload({
-          file: fileBuffer,
-          fileName: fileName,
+        file: fileBuffer,
+        fileName: fileName,
       });
 
       image = uploadedFile.url;
@@ -75,7 +75,7 @@ const getAllProducts = async (req, res) => {
       limit: limit,
       offset: offset,
       paranoid: false, // Include soft-deleted products
-      order: [['deletedAt', 'DESC']],
+      order: [["deletedAt", "DESC"]],
     });
 
     return res.status(200).json({
@@ -104,12 +104,12 @@ const getAllProductsNoDeleted = async (req, res) => {
   try {
     const { name, price, stock, category } = req.query;
 
-    const condition = {}
+    const condition = {};
 
-    if (name) condition.name = { [Op.iLike]: `%${name}%` }
-    if (price) condition.price = { [Op.lte]: price }
-    if (stock) condition.stock = { [Op.gte]: stock }
-    if (category) condition.category = category
+    if (name) condition.name = { [Op.iLike]: `%${name}%` };
+    if (price) condition.price = { [Op.lte]: price };
+    if (stock) condition.stock = { [Op.gte]: stock };
+    if (category) condition.category = category;
 
     const page = parseInt(req.query.page) || 1; // Default to page 1
     const limit = parseInt(req.query.limit) || 10; // Default to 10 products per page
@@ -121,7 +121,7 @@ const getAllProductsNoDeleted = async (req, res) => {
     const allProducts = await products.findAll({
       limit: limit,
       offset: offset,
-      order: [['id', 'ASC']],
+      order: [["id", "ASC"]],
     });
 
     return res.status(200).json({
@@ -136,7 +136,6 @@ const getAllProductsNoDeleted = async (req, res) => {
         productsPerPage: limit,
       },
     });
-
   } catch (error) {
     return res.status(500).json({
       status: "Failed",
@@ -145,7 +144,7 @@ const getAllProductsNoDeleted = async (req, res) => {
       data: null,
     });
   }
-}
+};
 
 // Get a single product by ID
 const getProductById = async (req, res) => {
