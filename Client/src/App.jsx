@@ -2,7 +2,8 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // import AboutView from "./page/AboutView";
 import HomeView from "./pages/HomeView";
-import ProductView from "./pages/ProductView";
+import ProductView from "./pages/user/UserProductView";
+import ProductDetailView from "./pages/user/UserProductDetailView";
 import MyCartView from "./pages/MyCartView";
 import NotFoundView from "./pages/NotFoundView";
 import RegisterView from "./pages/RegisterView";
@@ -19,6 +20,7 @@ import AdminEditProductView from "./pages/admin/AdminEditProductView";
 //loader
 import { loader as AdminHomeLoader } from "./pages/admin/AdminDashboardView";
 import { loader as AdminProductLoader } from "./pages/admin/AdminProductView";
+import { loader as ProductViewLoader } from "./pages/user/UserProductView";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,11 @@ const router = createBrowserRouter([
   {
     path: "/products",
     element: <ProductView />,
+    loader: ProductViewLoader,
+  },
+  {
+    path: "/product/:id",
+    element: <ProductDetailView />,
   },
   {
     path: "/my-cart",
