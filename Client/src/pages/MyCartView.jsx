@@ -1,6 +1,41 @@
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
 import Swal from "sweetalert2";
+import { Link, redirect, useLoaderData } from "react-router-dom";
+
+import axiosInstance from "../api/axiosInstance";
+
+export const loader = async () => {
+  // Retrieve user from localStorage and parse it
+  const user = JSON.parse(localStorage.getItem("user"));
+  console.log(user); // Check if user object exists
+
+  // Check if user exists
+  if (!user) {
+    console.log("User not found in localStorage");
+    return { cartItems: [] }; // Return an empty array if no user found
+  }
+
+  // Middleware to check login access based on user role
+  // const access = await checkAccess(user.id); // Pass userId to check access
+
+  // if (!access) {
+  //   return { cartItems: [] }; // Return empty array if access is denied
+  // }
+
+  // Fetch the user's data (e.g., cart data) if access is granted
+  try {
+    const response = await axiosInstance.get(`/carts?user=${user.id}`);
+    const cartItems = response.data.data || []; // Safely access data
+
+    console.log(cartItems); // Log cart items to verify
+
+    return { cartItems }; // Return cartItems inside an object
+  } catch (error) {
+    console.error("Error fetching cart items:", error);
+    return { cartItems: [] }; // Return empty array if API request fails
+  }
+};
 
 const MyCartView = () => {
   const handleCheckout = () => {
@@ -11,33 +46,7 @@ const MyCartView = () => {
       confirmButtonText: "OK",
     });
   };
-
-  const cartItems = [
-    {
-      id: 1,
-      amount: "2",
-      total: "11.98",
-      product: {
-        name: "Beef Cheese Burger",
-        category: "food",
-        price: "5.99",
-        image:
-          "https://ik.imagekit.io/raaapiiip/image-burger.jpg_-6g-B5dTK.jpg?updatedAt=1731860297214",
-      },
-    },
-    {
-      id: 2,
-      amount: "3",
-      total: "29.97",
-      product: {
-        name: "Margarita Pizza",
-        category: "food",
-        price: "9.99",
-        image:
-          "https://ik.imagekit.io/ft0mydzbzq/Margarita%20Pizza-16-11-2024.jpg?updatedAt=1731762623110",
-      },
-    },
-  ];
+  const { cartItems } = useLoaderData();
 
   const calculateTotals = () => {
     const subtotal = cartItems.reduce(
@@ -180,7 +189,10 @@ const MyCartView = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
-            <button className="btn btn-primary w-full sm:w-[280px]" onClick={handleCheckout}>
+            <button
+              className="btn btn-primary w-full sm:w-[280px]"
+              onClick={handleCheckout}
+            >
               <span>Checkout</span>
             </button>
           </div>
@@ -190,6 +202,5 @@ const MyCartView = () => {
     </>
   );
 };
-
 
 export default MyCartView;
