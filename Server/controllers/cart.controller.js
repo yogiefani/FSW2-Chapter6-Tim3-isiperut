@@ -27,6 +27,10 @@ const getCartByUser = async (req, res) => {
       where: {
         userId: userLogin,
       },
+      include: {
+        model: products, // Assuming 'Product' is the name of your model
+        attributes: { exclude: [] }, // This includes all columns from the Product model
+      },
     });
 
     res.status(200).json({

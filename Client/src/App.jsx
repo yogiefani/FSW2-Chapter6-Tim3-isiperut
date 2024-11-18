@@ -11,6 +11,7 @@ import LoginView from "./pages/LoginView";
 import ProfileView from "./pages/ProfileView";
 // import { LoginPage } from "./page/LoginPage";
 // import { RegisterPage } from "./page/RegisterPage";
+import { PrivateRoute } from "./routes/PrivateRoute";
 
 //admin view
 import AdminDashboard from "./pages/admin/AdminDashboardView";
@@ -23,6 +24,7 @@ import { loader as AdminHomeLoader } from "./pages/admin/AdminDashboardView";
 import { loader as AdminProductLoader } from "./pages/admin/AdminProductView";
 import { loader as HomeProductLoader } from "./pages/HomeView";
 import { loader as ProductProductLoader } from "./pages/ProductView";
+import { loader as MyCartLoader } from "./pages/MyCartView";
 
 const router = createBrowserRouter([
   {
@@ -41,7 +43,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/my-cart",
-    element: <MyCartView />,
+    element: (
+      <PrivateRoute>
+        <MyCartView />
+      </PrivateRoute>
+    ),
+    loader: MyCartLoader,
   },
   {
     path: "/profile",
