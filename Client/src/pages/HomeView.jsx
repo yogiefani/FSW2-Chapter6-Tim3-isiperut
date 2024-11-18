@@ -2,25 +2,23 @@ import { useEffect, useState } from "react";
 import Footer from "../components/Footer/Footer";
 import Navbar from "../components/Navbar/Navbar";
 import NavbarForAdmin from "../components/Navbar/NavbarForAdmin";
+import { checkAccess } from "../middlewares/auth";
 
 function HomeView() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const checkUserRole = () => {
-      const userData = localStorage.getItem("user");
-      if (userData) {
-        try {
-          const parsedUser = JSON.parse(userData);
-          setIsAdmin(parsedUser.role === "admin");
-        } catch (error) {
-          console.error("Error parsing user data:", error);
-          setIsAdmin(false);
-        }
+    const verifyAdmin = async () => {
+      try {
+        const isAdminUser = await checkAccess();
+        setIsAdmin(isAdminUser);
+      } catch (error) {
+        console.error("Error checking admin access:", error);
+        setIsAdmin(false);
       }
     };
 
-    checkUserRole();
+    verifyAdmin();
   }, []);
 
   return (
