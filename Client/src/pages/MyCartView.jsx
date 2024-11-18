@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
 import Swal from "sweetalert2";
 import { Link, redirect, useLoaderData } from "react-router-dom";
-
+import { useState, useEffect } from "react";
 import axiosInstance from "../api/axiosInstance";
 
 export const loader = async () => {
@@ -38,6 +38,34 @@ export const loader = async () => {
 };
 
 const MyCartView = () => {
+  const initialData = useLoaderData();
+  const [cartItems, setCartItems] = useState(initialData.cartItems);
+
+  const deleteCartItem = async (itemId) => {
+    try {
+      await axiosInstance.delete(`/carts/${itemId}`);
+
+      setCartItems((prevItems) =>
+        prevItems.filter((item) => item.id !== itemId)
+      );
+
+      Swal.fire({
+        title: "Success!",
+        text: "Item removed from cart",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+    } catch (error) {
+      console.error("Error deleting cart item:", error);
+      Swal.fire({
+        title: "Error!",
+        text: "Failed to remove item from cart",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+    }
+  };
+
   const handleCheckout = () => {
     Swal.fire({
       title: "Checkout Successful!",
@@ -46,7 +74,6 @@ const MyCartView = () => {
       confirmButtonText: "OK",
     });
   };
-  const { cartItems } = useLoaderData();
 
   const calculateTotals = () => {
     const subtotal = cartItems.reduce(
@@ -115,7 +142,10 @@ const MyCartView = () => {
                   </div>
 
                   <div className="join">
-                    <button className="btn join-item">
+                    <button
+                      className="btn join-item"
+                      onClick={() => updateCartItem(item.id, item.amount - 1)}
+                    >
                       <svg
                         width="22"
                         height="22"
@@ -136,7 +166,10 @@ const MyCartView = () => {
                       readOnly
                       className="input input-bordered join-item w-20 text-center"
                     />
-                    <button className="btn join-item">
+                    <button
+                      className="btn join-item"
+                      onClick={() => updateCartItem(item.id, item.amount + 1)}
+                    >
                       <svg
                         width="22"
                         height="22"
@@ -158,6 +191,27 @@ const MyCartView = () => {
                       $ {parseFloat(item.total).toLocaleString("id-ID")}
                     </p>
                   </div>
+
+                  <button
+                    className="btn btn-error btn-sm"
+                    onClick={() => deleteCartItem(item.id)}
+                    title="Remove item"
+                  >
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M3 6h18" />
+                      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                    </svg>
+                  </button>
                 </div>
               </div>
             ))}
