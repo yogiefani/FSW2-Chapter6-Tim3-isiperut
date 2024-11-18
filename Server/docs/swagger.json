@@ -1,146 +1,278 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "CH5-Challenge",
-    "version": "1.0.0"
+    "title": "Isi Perut API Documentation",
+    "version": "1.0.0",
+    "description": "Swagger API documentation for Isi Perut application."
   },
   "servers": [
     {
-      "url": "http://{{url}}"
-    }
-  ],
-  "tags": [
-    {
-      "name": "User"
-    },
-    {
-      "name": "Auth"
-    },
-    {
-      "name": "Car"
+      "url": "/api/v1",
+      "description": "Base URL for the API"
     }
   ],
   "paths": {
-    "/users": {
-      "get": {
-        "tags": ["User"],
-        "summary": "getAll User",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            },
-            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJTdXBlciBBZG1pbiIsImVtYWlsIjoic3VwZXIuYWRtaW5AZXhhbXBsZS5jb20iLCJyb2xlIjoic3VwZXJhZG1pbiIsImlhdCI6MTczMDU1NjkzMSwiZXhwIjoxNzMwNjQzMzMxfQ.KsWY0VNhbL7nWmgl4rmMJuWvEaqzA7w3rcGgyktSprQ"
+    "/auth/login": {
+      "post": {
+        "summary": "Authenticate user and provide access token",
+        "description": "User login with email and password to obtain a JWT token.",
+        "tags": ["Auths"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "admin@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "password"
+                  }
+                },
+                "required": ["email", "password"]
+              }
+            }
           }
-        ],
+        },
         "responses": {
           "200": {
-            "description": "OK",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": "1150"
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"47e-68dMVKeB1+K5x12DMDKt5Js6TsU\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 14:18:10 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
+            "description": "Successful login",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object"
-                },
                 "example": {
                   "status": "Success",
-                  "message": "Success to get users",
+                  "message": "Login success",
+                  "isSuccess": true,
+                  "data": {
+                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+                    "user": {
+                      "id": 1,
+                      "name": "Admin",
+                      "email": "admin@example.com",
+                      "role": "admin",
+                      "photoProfile": "https://example.com/profile.jpg"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Missing email or password",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Failed",
+                  "message": "Email and password is required",
+                  "isSuccess": false,
+                  "data": null
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid credentials",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "UserNotFound": {
+                    "summary": "User not found",
+                    "value": {
+                      "status": "Failed",
+                      "message": "User not found",
+                      "isSuccess": false,
+                      "data": null
+                    }
+                  },
+                  "IncorrectPassword": {
+                    "summary": "Incorrect password",
+                    "value": {
+                      "status": "Failed",
+                      "message": "Password is incorrect",
+                      "isSuccess": false,
+                      "data": null
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "summary": "Register a new user",
+        "description": "Register a new user with name, email, password, address, and phone.",
+        "tags": ["Auths"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Rafif"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "rafif@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "password"
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "Batam"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "example": "08214365879"
+                  }
+                },
+                "required": ["name", "email", "password", "address", "phone"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Account created successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Success",
+                  "message": "User created successfully",
+                  "isSuccess": true,
+                  "data": {
+                    "id": 3,
+                    "name": "Rafif",
+                    "email": "rafif@example.com",
+                    "address": "Batam",
+                    "phone": "08214365879",
+                    "role": "user",
+                    "createdAt": "2024-11-17T13:56:40.183Z",
+                    "updatedAt": "2024-11-17T13:56:40.183Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Missing required fields",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Failed",
+                  "message": "All fields are required",
+                  "isSuccess": false,
+                  "data": null
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/current": {
+      "get": {
+        "summary": "Get current logged-in user",
+        "description": "Retrieve details of the currently logged-in user. Requires authorization.",
+        "tags": ["Auths"],
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved current user",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Success",
+                  "message": "Success to get user",
+                  "isSuccess": true,
+                  "data": {
+                    "id": 1,
+                    "name": "Admin",
+                    "email": "admin@example.com",
+                    "address": "Jakarta",
+                    "phone": "08123456789",
+                    "role": "admin",
+                    "photoProfile": "https://example.com/profile.jpg",
+                    "createdAt": "2024-11-16T23:46:14.547Z",
+                    "updatedAt": "2024-11-16T23:46:14.549Z"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Token missing or invalid",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "MissingToken": {
+                    "summary": "Token missing",
+                    "value": {
+                      "status": "Failed",
+                      "message": "Your token is missing!",
+                      "isSuccess": false
+                    }
+                  },
+                  "NotAuthorized": {
+                    "summary": "Not authorized as admin",
+                    "value": {
+                      "status": "Failed",
+                      "message": "Not Authorized as an Admin",
+                      "isSuccess": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Get all users",
+        "description": "Retrieve a list of all users.",
+        "tags": ["Users"],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved all users",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Success",
+                  "message": "Success to get all users",
                   "isSuccess": true,
                   "data": [
                     {
                       "id": 1,
-                      "name": "Super Admin",
-                      "email": "super.admin@example.com",
-                      "password": "$2b$10$Ff0VlTyZPAeh.zf3IXynyOdUJei4hereznYkQKtHvabE2Fei0hqb2",
-                      "photoProfile": null,
-                      "role": "superadmin",
-                      "createdAt": "2024-11-02T11:06:41.507Z",
-                      "updatedAt": "2024-11-02T11:06:41.508Z",
-                      "deletedAt": null
+                      "name": "Admin",
+                      "email": "admin@example.com",
+                      "address": "Jakarta",
+                      "phone": "08123456789",
+                      "role": "admin",
+                      "createdAt": "2024-11-16T23:46:14.547Z",
+                      "updatedAt": "2024-11-16T23:46:14.549Z"
                     },
                     {
                       "id": 2,
-                      "name": "Admin",
-                      "email": "admin@example.com",
-                      "password": "$2b$10$b8cKWnDMw7Wy9YPscVfB4.bUPqMaKt/QCSZgzRUVTOHb3Xvq4.8yW",
-                      "photoProfile": null,
-                      "role": "admin",
-                      "createdAt": "2024-11-02T11:06:41.742Z",
-                      "updatedAt": "2024-11-02T11:06:41.742Z",
-                      "deletedAt": null
-                    },
-                    {
-                      "id": 3,
-                      "name": "User",
-                      "email": "user@example.com",
-                      "password": "$2b$10$kzF/rgB79rJS4NCxQm0b6e9z2HTTuPCuvNOU0wQDvm4X0Ar0z1ygi",
-                      "photoProfile": null,
+                      "name": "Rafif",
+                      "email": "rafif@example.com",
+                      "address": "Batam",
+                      "phone": "08214365879",
                       "role": "user",
-                      "createdAt": "2024-11-02T11:06:41.789Z",
-                      "updatedAt": "2024-11-02T11:31:01.095Z",
-                      "deletedAt": "2024-11-02T11:31:01.095Z"
-                    },
-                    {
-                      "id": 5,
-                      "name": "Haikal Nuril",
-                      "email": "haikal.nuril@gmail.com",
-                      "password": "$2b$10$Ozf8AOAzkn5VwlMMI7AILOY/lnXA4u/RNsG4BwW3f8UJFspVyfvBK",
-                      "photoProfile": null,
-                      "role": "user",
-                      "createdAt": "2024-11-02T14:16:59.710Z",
-                      "updatedAt": "2024-11-02T14:16:59.710Z",
-                      "deletedAt": null
+                      "createdAt": "2024-11-17T13:56:40.183Z",
+                      "updatedAt": "2024-11-17T13:56:40.183Z"
                     }
                   ]
                 }
@@ -148,65 +280,12 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": "72"
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"48-4pejX+ZeuzMCBUGn0YUWXuJO2pA\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 14:18:47 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
+            "description": "Unauthorized - Missing or invalid token",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object"
-                },
                 "example": {
                   "status": "Failed",
-                  "message": "Your token is missing!",
+                  "message": "Not Authorized, no token",
                   "isSuccess": false
                 }
               }
@@ -215,177 +294,101 @@
         }
       },
       "post": {
-        "tags": ["User"],
-        "summary": "create User",
+        "summary": "Create a new user",
+        "description": "Create a new user.",
+        "tags": ["Users"],
         "requestBody": {
+          "required": true,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "multipart/form-data": {
               "schema": {
+                "type": "object",
                 "properties": {
                   "name": {
                     "type": "string",
-                    "example": "irfan muria"
+                    "example": "Ahmed"
                   },
                   "email": {
                     "type": "string",
-                    "example": "irfan.muria@gmail.com"
+                    "example": "ahmed@example.com"
                   },
                   "password": {
                     "type": "string",
                     "example": "password"
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "California"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "example": "081234567890"
+                  },
+                  "role": {
+                    "type": "string",
+                    "example": "user"
+                  },
+                  "photoProfile": {
+                    "type": "string",
+                    "format": "binary"
                   }
-                }
+                },
+                "required": [
+                  "name",
+                  "email",
+                  "password",
+                  "address",
+                  "phone",
+                  "role",
+                  "photoProfile"
+                ]
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            },
-            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJoYWlrYWwgbnVyaWwiLCJlbWFpbCI6ImhhaWthbC5udXJpbDI1QGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzMwMjk2NTE0LCJleHAiOjE3MzAzODI5MTR9.n8xFMhuvSFc5YS1LZ0c5DHVah6qlOqlSQEVq5KEYE4E"
-          }
-        ],
         "responses": {
           "201": {
-            "description": "Created",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": "346"
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"15a-BR91xxpZ8HwUnCRR4lVmvLEBTU8\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 14:16:59 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
+            "description": "User created successfully",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object"
-                },
                 "example": {
                   "status": "Success",
-                  "message": "Success to create user",
+                  "message": "User created successfully",
                   "isSuccess": true,
                   "data": {
-                    "id": 5,
-                    "name": "Haikal Nuril",
-                    "email": "haikal.nuril@gmail.com",
-                    "password": "$2b$10$Ozf8AOAzkn5VwlMMI7AILOY/lnXA4u/RNsG4BwW3f8UJFspVyfvBK",
+                    "id": 3,
+                    "name": "Ahmed",
+                    "email": "ahmed@example.com",
+                    "address": "California",
+                    "phone": "081234567890",
                     "role": "user",
-                    "updatedAt": "2024-11-02T14:16:59.710Z",
-                    "createdAt": "2024-11-02T14:16:59.710Z",
-                    "photoProfile": null,
-                    "deletedAt": null
+                    "photoProfile": "https://example.com/profile.jpg",
+                    "createdAt": "2024-11-17T13:56:40.183Z",
+                    "updatedAt": "2024-11-17T13:56:40.183Z"
                   }
                 }
               }
             }
           },
-          "401": {
-            "description": "Unauthorized",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": "72"
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"48-4pejX+ZeuzMCBUGn0YUWXuJO2pA\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 14:17:12 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
+          "400": {
+            "description": "Bad Request - Missing required fields",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object"
-                },
                 "example": {
                   "status": "Failed",
-                  "message": "Your token is missing!",
+                  "message": "All fields are required",
+                  "isSuccess": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Missing or invalid token",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Failed",
+                  "message": "Not Authorized, no token",
                   "isSuccess": false
                 }
               }
@@ -395,278 +398,40 @@
       }
     },
     "/users/{id}": {
-      "put": {
-        "tags": ["User"],
-        "summary": "update User",
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "properties": {
-                  "password": {
-                    "type": "string",
-                    "example": "password"
-                  }
-                }
-              }
-            }
-          }
-        },
+      "get": {
+        "summary": "Get user by ID",
+        "description": "Retrieve details of a specific user by their ID.",
+        "tags": ["Users"],
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "ID of the user to retrieve",
             "required": true,
             "schema": {
-              "type": "string"
-            },
-            "example": "2"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+              "type": "integer",
+              "example": 1
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": 335
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"14f-Ga+IIILsrTCCbXoGroVRixyrGbU\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 14:21:26 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
+            "description": "Successfully retrieved user details",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object"
-                },
                 "example": {
                   "status": "Success",
-                  "message": "Success to update user",
+                  "message": "Success to get user",
                   "isSuccess": true,
                   "data": {
-                    "id": 2,
+                    "id": 1,
                     "name": "Admin",
                     "email": "admin@example.com",
-                    "password": "$2b$10$247Kt/jIbjapPNRQKhUzAOyM2EnFPBHvttaBggX/szHh26WGbBilO",
-                    "photoProfile": null,
+                    "address": "Jakarta",
+                    "phone": "08123456789",
                     "role": "admin",
-                    "createdAt": "2024-11-02T11:06:41.742Z",
-                    "updatedAt": "2024-11-02T14:21:26.798Z",
-                    "deletedAt": null
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": 72
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"48-4pejX+ZeuzMCBUGn0YUWXuJO2pA\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 14:21:46 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                },
-                "example": {
-                  "status": "Failed",
-                  "message": "Your token is missing!",
-                  "isSuccess": false
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": ["User"],
-        "summary": "Delete User",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "example": "5"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "User deleted successfully",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "Success"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Success to delete user"
-                    },
-                    "isSuccess": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "data": {
-                      "type": "null",
-                      "example": null
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "Failed"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Your token is missing!"
-                    },
-                    "isSuccess": {
-                      "type": "boolean",
-                      "example": false
-                    }
+                    "createdAt": "2024-11-16T23:46:14.547Z",
+                    "updatedAt": "2024-11-16T23:46:14.549Z"
                   }
                 }
               }
@@ -676,49 +441,74 @@
             "description": "User not found",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "Failed"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "User not found"
-                    },
-                    "isSuccess": {
-                      "type": "boolean",
-                      "example": false
-                    }
-                  }
+                "example": {
+                  "status": "Failed",
+                  "message": "User not found",
+                  "isSuccess": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Missing or invalid token",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Failed",
+                  "message": "Not Authorized, no token",
+                  "isSuccess": false
                 }
               }
             }
           }
         }
-      }
-    },
-    "/register": {
-      "post": {
-        "tags": ["Auth"],
-        "summary": "Register",
+      },
+      "patch": {
+        "summary": "Update user by ID",
+        "description": "Update a user's information by their ID.",
+        "tags": ["Users"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the user to update",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          }
+        ],
         "requestBody": {
+          "required": true,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
+                "type": "object",
                 "properties": {
                   "name": {
                     "type": "string",
-                    "example": "Jetro"
+                    "example": "Updated User"
                   },
                   "email": {
                     "type": "string",
-                    "example": "jetro@gmail.com"
+                    "example": "updateduser@example.com"
                   },
                   "password": {
                     "type": "string",
-                    "example": "password"
+                    "example": "newpassword123"
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "Yogyakarta"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "example": "081234567890"
+                  },
+                  "role": {
+                    "type": "string",
+                    "example": "user"
                   }
                 }
               }
@@ -727,814 +517,47 @@
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": 335
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"14f-sE+IQ5URx5Ws0mF4pLbHB58dMPE\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 10:03:50 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
+            "description": "User updated successfully",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object"
-                },
                 "example": {
                   "status": "Success",
-                  "message": "User created successfully",
+                  "message": "User updated successfully",
                   "isSuccess": true,
                   "data": {
-                    "id": 4,
-                    "name": "Jetro",
-                    "email": "jetro@gmail.com",
-                    "password": "$2b$10$yKwgl5MBLEwIQnIj..Om9.Gz2Hor.C.nsf4OJZQItv1yeNh9Evci6",
-                    "updatedAt": "2024-11-02T10:03:50.376Z",
-                    "createdAt": "2024-11-02T10:03:50.376Z",
-                    "photoProfile": null,
+                    "id": 1,
+                    "name": "Updated User",
+                    "email": "updateduser@example.com",
+                    "address": "Yogyakarta",
+                    "phone": "081234567890",
                     "role": "user",
-                    "deletedAt": null
+                    "createdAt": "2024-11-16T23:46:14.547Z",
+                    "updatedAt": "2024-11-18T12:00:00.000Z"
                   }
                 }
               }
             }
           },
           "400": {
-            "description": "Bad Request",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": 102
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"66-CGbyGvB8/SeeXD3HCshTBn/x1nI\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 14:14:29 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
+            "description": "Bad Request - Missing required fields or invalid data",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object"
-                },
                 "example": {
                   "status": "Failed",
-                  "message": "Please provide name, email, and password",
+                  "message": "Invalid input data",
                   "isSuccess": false,
                   "data": null
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/login": {
-      "post": {
-        "tags": ["Auth"],
-        "summary": "login",
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "properties": {
-                  "email": {
-                    "type": "string",
-                    "example": "super.admin@gmail.com"
-                  },
-                  "password": {
-                    "type": "string",
-                    "example": "superadmin"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": 606
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"25e-KTe7T+UtJke4efKIIXvYIqWL9yg\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 14:15:31 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                },
-                "example": {
-                  "status": "Success",
-                  "message": "Login success",
-                  "isSuccess": true,
-                  "data": {
-                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJTdXBlciBBZG1pbiIsImVtYWlsIjoic3VwZXIuYWRtaW5AZXhhbXBsZS5jb20iLCJyb2xlIjoic3VwZXJhZG1pbiIsImlhdCI6MTczMDU1NjkzMSwiZXhwIjoxNzMwNjQzMzMxfQ.KsWY0VNhbL7nWmgl4rmMJuWvEaqzA7w3rcGgyktSprQ",
-                    "user": {
-                      "id": 1,
-                      "name": "Super Admin",
-                      "email": "super.admin@example.com",
-                      "password": "$2b$10$Ff0VlTyZPAeh.zf3IXynyOdUJei4hereznYkQKtHvabE2Fei0hqb2",
-                      "photoProfile": null,
-                      "role": "superadmin",
-                      "createdAt": "2024-11-02T11:06:41.507Z",
-                      "updatedAt": "2024-11-02T11:06:41.508Z",
-                      "deletedAt": null
-                    }
-                  }
-                }
-              }
-            }
           },
-          "400": {
-            "description": "Bad Request",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": 95
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"5f-FGQOZ3M52hiM6csgmxsOx+4xzso\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 14:15:54 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
+          "404": {
+            "description": "User not found",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object"
-                },
                 "example": {
                   "status": "Failed",
-                  "message": "Please provide email and password",
-                  "isSuccess": false,
-                  "data": null
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/current-user": {
-      "get": {
-        "tags": ["Auth"],
-        "summary": "check Current User",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            },
-            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJTdXBlciBBZG1pbiIsImVtYWlsIjoic3VwZXIuYWRtaW5AZXhhbXBsZS5jb20iLCJyb2xlIjoic3VwZXJhZG1pbiIsImlhdCI6MTczMDU1NTkxNiwiZXhwIjoxNzMwNjQyMzE2fQ.0O1mRLKR54j2yWyHeENf3urzrzs03T0sctIt1PZzyKk"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": 340
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"154-7dqv96kBuOARUf2iVfENafBQPsk\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 14:10:47 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                },
-                "example": {
-                  "status": "Success",
-                  "message": "User found",
-                  "isSuccess": true,
-                  "data": {
-                    "id": 1,
-                    "name": "Super Admin",
-                    "email": "super.admin@example.com",
-                    "password": "$2b$10$Ff0VlTyZPAeh.zf3IXynyOdUJei4hereznYkQKtHvabE2Fei0hqb2",
-                    "photoProfile": null,
-                    "role": "superadmin",
-                    "createdAt": "2024-11-02T11:06:41.507Z",
-                    "updatedAt": "2024-11-02T11:06:41.508Z",
-                    "deletedAt": null
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": 72
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"48-4pejX+ZeuzMCBUGn0YUWXuJO2pA\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 14:10:05 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                },
-                "example": {
-                  "status": "Failed",
-                  "message": "Your token is missing!",
-                  "isSuccess": false
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/cars": {
-      "get": {
-        "tags": ["Car"],
-        "summary": "getAll Car",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            },
-            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJBZG1pbiIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzA1NTUwNTEsImV4cCI6MTczMDY0MTQ1MX0.mM9ajFOLy0ibDb9BtOifQlWN_tkWGeEVf4c297sTT8Q"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": 477
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"1dd-5MqOrRq1PVo/P8R1NarDBQHzm4g\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 13:51:34 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                },
-                "example": {
-                  "status": "Success",
-                  "message": "Success to get cars",
-                  "isSuccess": true,
-                  "data": [
-                    {
-                      "id": 1,
-                      "name": "Tesla Model S",
-                      "model": "2024",
-                      "desc": "The Tesla Model S is an all-electric luxury sedan that offers exceptional performance, a spacious interior, and advanced technology features, including Autopilot capabilities for semi-autonomous driving.",
-                      "createdBy": 2,
-                      "updatedBy": 2,
-                      "deletedBy": null,
-                      "deletedAt": null,
-                      "createdAt": "2024-11-02T13:49:27.805Z",
-                      "updatedAt": "2024-11-02T13:49:27.805Z"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": 72
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"48-4pejX+ZeuzMCBUGn0YUWXuJO2pA\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 13:51:18 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                },
-                "example": {
-                  "status": "Failed",
-                  "message": "Your token is missing!",
-                  "isSuccess": false
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": ["Car"],
-        "summary": "create Car",
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "example": "Tesla Model S"
-                  },
-                  "model": {
-                    "type": "string",
-                    "example": "2024"
-                  },
-                  "desc": {
-                    "type": "string",
-                    "example": "The Tesla Model S is an all-electric luxury sedan that offers exceptional performance, a spacious interior, and advanced technology features, including Autopilot capabilities for semi-autonomous driving."
-                  }
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            },
-            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJBZG1pbiIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzA1NTUwNTEsImV4cCI6MTczMDY0MTQ1MX0.mM9ajFOLy0ibDb9BtOifQlWN_tkWGeEVf4c297sTT8Q"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": 480
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"1e0-5D4brd8UjrGWLtw70wrSvCYAZfM\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 13:49:27 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                },
-                "example": {
-                  "status": "Success",
-                  "message": "Car created successfully",
-                  "isSuccess": true,
-                  "data": {
-                    "id": 1,
-                    "name": "Tesla Model S",
-                    "model": "2024",
-                    "desc": "The Tesla Model S is an all-electric luxury sedan that offers exceptional performance, a spacious interior, and advanced technology features, including Autopilot capabilities for semi-autonomous driving.",
-                    "createdBy": 2,
-                    "updatedBy": 2,
-                    "updatedAt": "2024-11-02T13:49:27.805Z",
-                    "createdAt": "2024-11-02T13:49:27.805Z",
-                    "deletedBy": null,
-                    "deletedAt": null
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": 98
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"62-RHkAO80+ACwHBVyVBTKs4CQwwyM\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 13:52:17 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                },
-                "example": {
-                  "status": "Failed",
-                  "message": "Please provide name, model, and desc",
+                  "message": "User not found",
                   "isSuccess": false,
                   "data": null
                 }
@@ -1542,425 +565,12 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": 72
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"48-4pejX+ZeuzMCBUGn0YUWXuJO2pA\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 14:09:48 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
+            "description": "Unauthorized - Missing or invalid token",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object"
-                },
                 "example": {
                   "status": "Failed",
-                  "message": "Your token is missing!",
-                  "isSuccess": false
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/cars/{id}": {
-      "get": {
-        "tags": ["Car"],
-        "summary": "get Car By Id",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            },
-            "description": "ID of the car to retrieve",
-            "example": 4
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            },
-            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJTdXBlciBBZG1pbiIsImVtYWlsIjoic3VwZXIuYWRtaW5AZXhhbXBsZS5jb20iLCJyb2xlIjoic3VwZXJhZG1pbiIsImlhdCI6MTczMDU1NTkxNiwiZXhwIjoxNzMwNjQyMzE2fQ.0O1mRLKR54j2yWyHeENf3urzrzs03T0sctIt1PZzyKk"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": 520
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"208-CSIOQQpiwR0xtfbWEjRWA3KrxMU\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 14:09:05 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                },
-                "example": {
-                  "status": "Success",
-                  "message": "Success to get car",
-                  "isSuccess": true,
-                  "data": {
-                    "id": 4,
-                    "name": "Honda Civic",
-                    "model": "2023",
-                    "desc": "The Honda Civic is a compact car that balances efficiency, reliability, and performance. The 2023 model boasts a sleek design, advanced safety features, and a comfortable interior, making it an ideal choice for daily commutes and long journeys alike.",
-                    "createdBy": 2,
-                    "updatedBy": 2,
-                    "deletedBy": null,
-                    "deletedAt": null,
-                    "createdAt": "2024-11-02T14:07:59.674Z",
-                    "updatedAt": "2024-11-02T14:07:59.674Z"
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": 72
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"48-4pejX+ZeuzMCBUGn0YUWXuJO2pA\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 14:09:19 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                },
-                "example": {
-                  "status": "Failed",
-                  "message": "Your token is missing!",
-                  "isSuccess": false
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": ["Car"],
-        "summary": "update Car",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            },
-            "description": "ID of the car to update",
-            "example": 1
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            },
-            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJBZG1pbiIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzA1NTUwNTEsImV4cCI6MTczMDY0MTQ1MX0.mM9ajFOLy0ibDb9BtOifQlWN_tkWGeEVf4c297sTT8Q"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "example": "Tesla Model S"
-                  },
-                  "model": {
-                    "type": "integer",
-                    "example": 2023
-                  },
-                  "desc": {
-                    "type": "string",
-                    "example": "The Tesla Model S is an all-electric luxury sedan that offers exceptional performance, a spacious interior, and advanced technology features, including Autopilot capabilities for semi-autonomous driving."
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": 480
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"1e0-BvG9WrxJe1wlxrds+j06zmeE+nU\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 13:58:55 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                },
-                "example": {
-                  "status": "Success",
-                  "message": "Car updated successfully",
-                  "isSuccess": true,
-                  "data": {
-                    "id": 1,
-                    "name": "Tesla Model S",
-                    "model": 2023,
-                    "desc": "The Tesla Model S is an all-electric luxury sedan that offers exceptional performance, a spacious interior, and advanced technology features, including Autopilot capabilities for semi-autonomous driving.",
-                    "createdBy": 2,
-                    "updatedBy": 1,
-                    "deletedBy": null,
-                    "deletedAt": null,
-                    "createdAt": "2024-11-02T13:49:27.805Z",
-                    "updatedAt": "2024-11-02T13:58:55.162Z"
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": 72
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"48-4pejX+ZeuzMCBUGn0YUWXuJO2pA\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 14:00:35 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                },
-                "example": {
-                  "status": "Failed",
-                  "message": "Your token is missing!",
+                  "message": "Not Authorized, no token",
                   "isSuccess": false
                 }
               }
@@ -1969,222 +579,54 @@
         }
       },
       "delete": {
-        "tags": ["Car"],
-        "summary": "delete Car",
+        "summary": "Delete user by ID",
+        "description": "Delete a specific user by their ID.",
+        "tags": ["Users"],
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "ID of the user to delete",
             "required": true,
             "schema": {
-              "type": "integer"
-            },
-            "description": "ID of the car to delete",
-            "example": 1
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            },
-            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJTdXBlciBBZG1pbiIsImVtYWlsIjoic3VwZXIuYWRtaW5AZXhhbXBsZS5jb20iLCJyb2xlIjoic3VwZXJhZG1pbiIsImlhdCI6MTczMDU1NTkxNiwiZXhwIjoxNzMwNjQyMzE2fQ.0O1mRLKR54j2yWyHeENf3urzrzs03T0sctIt1PZzyKk"
+              "type": "integer",
+              "example": 1
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": 86
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"56-lktCEhExpicIT28mtGrRDXdjWpQ\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 14:01:49 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
+            "description": "User deleted successfully",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object"
-                },
                 "example": {
                   "status": "Success",
-                  "message": "Car deleted successfully",
-                  "isSuccess": true,
-                  "data": null
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": 72
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"48-4pejX+ZeuzMCBUGn0YUWXuJO2pA\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 14:04:29 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                },
-                "example": {
-                  "status": "Failed",
-                  "message": "Your token is missing!",
-                  "isSuccess": false
+                  "message": "User deleted successfully",
+                  "isSuccess": true
                 }
               }
             }
           },
           "404": {
-            "description": "Not Found",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": 75
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"4b-n6zLphQ8sTFpvV71y5L4uMUVgVo\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 14:02:07 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
+            "description": "User not found",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object"
-                },
                 "example": {
                   "status": "Failed",
-                  "message": "Car not found",
-                  "isSuccess": false,
-                  "data": null
+                  "message": "User not found",
+                  "isSuccess": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Missing or invalid token",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Failed",
+                  "message": "Not Authorized, no token",
+                  "isSuccess": false
                 }
               }
             }
@@ -2192,95 +634,367 @@
         }
       }
     },
-    "/cars/all": {
+    "/products/all": {
       "get": {
-        "tags": ["Car"],
-        "summary": "get All Car Even the deleted",
-        "description": "This one for check all car even the deleted one",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            },
-            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJTdXBlciBBZG1pbiIsImVtYWlsIjoic3VwZXIuYWRtaW5AZXhhbXBsZS5jb20iLCJyb2xlIjoic3VwZXJhZG1pbiIsImlhdCI6MTczMDU1NTkxNiwiZXhwIjoxNzMwNjQyMzE2fQ.0O1mRLKR54j2yWyHeENf3urzrzs03T0sctIt1PZzyKk"
-          }
-        ],
+        "summary": "Get all products",
+        "description": "Retrieve a list of all products, including deleted ones.",
+        "tags": ["Products"],
         "responses": {
           "200": {
-            "description": "OK",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": 499
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"1f3-hocFs4YUaarkuzljCR6DtqVAxBE\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 14:05:22 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
+            "description": "Successfully retrieved all products",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object"
-                },
                 "example": {
                   "status": "Success",
-                  "message": "Success to get cars",
+                  "message": "Success to get products",
                   "isSuccess": true,
                   "data": [
                     {
                       "id": 1,
-                      "name": "Tesla Model S",
-                      "model": "2023",
-                      "desc": "The Tesla Model S is an all-electric luxury sedan that offers exceptional performance, a spacious interior, and advanced technology features, including Autopilot capabilities for semi-autonomous driving.",
-                      "createdBy": 2,
-                      "updatedBy": 1,
-                      "deletedBy": 1,
-                      "deletedAt": "2024-11-02T14:01:49.005Z",
-                      "createdAt": "2024-11-02T13:49:27.805Z",
-                      "updatedAt": "2024-11-02T14:01:49.005Z"
+                      "name": "Spaghetti Carbonara",
+                      "desc": "Creamy Italian pasta with a rich sauce.",
+                      "price": "12.99",
+                      "stock": 50,
+                      "category": "food",
+                      "image": "https://example.com/image.jpg",
+                      "createdAt": "2024-11-16T23:46:14.787Z",
+                      "updatedAt": "2024-11-16T23:46:14.787Z"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "summary": "Get all active products",
+        "description": "Retrieve a list of all active products (non-deleted).",
+        "tags": ["Products"],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved all active products",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Success",
+                  "message": "Success to get products",
+                  "isSuccess": true,
+                  "data": [
+                    {
+                      "id": 1,
+                      "name": "Spaghetti Carbonara",
+                      "desc": "Creamy Italian pasta with a rich sauce.",
+                      "price": "12.99",
+                      "stock": 50,
+                      "category": "food",
+                      "image": "https://example.com/image.jpg",
+                      "createdAt": "2024-11-16T23:46:14.787Z",
+                      "updatedAt": "2024-11-16T23:46:14.787Z"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new product",
+        "description": "Create a new product.",
+        "tags": ["Products"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Beef Cheese Burger"
+                  },
+                  "desc": {
+                    "type": "string",
+                    "example": "Juicy beef patty topped with melted cheese in a soft bun."
+                  },
+                  "price": {
+                    "type": "number",
+                    "example": 5.99
+                  },
+                  "stock": {
+                    "type": "integer",
+                    "example": 100
+                  },
+                  "category": {
+                    "type": "string",
+                    "example": "food"
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "name",
+                  "desc",
+                  "price",
+                  "stock",
+                  "category",
+                  "image"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Product created successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Success",
+                  "message": "Product created successfully",
+                  "isSuccess": true,
+                  "data": {
+                    "id": 13,
+                    "name": "Beef Cheese Burger",
+                    "desc": "Juicy beef patty topped with melted cheese in a soft bun.",
+                    "price": 5.99,
+                    "stock": 100,
+                    "category": "food",
+                    "image": "https://example.com/image.jpg",
+                    "createdAt": "2024-11-17T16:18:18.420Z",
+                    "updatedAt": "2024-11-17T16:18:18.420Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Missing required fields",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Failed",
+                  "message": "Please provide name, description, price, stock, and category",
+                  "isSuccess": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "get": {
+        "summary": "Get product by ID",
+        "description": "Retrieve details of a product by its ID.",
+        "tags": ["Products"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the product to retrieve",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved product details",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Success",
+                  "message": "Success to get product",
+                  "isSuccess": true,
+                  "data": {
+                    "id": 2,
+                    "name": "Margarita Pizza",
+                    "desc": "Classic Neapolitan pizza topped with fresh tomatoes, mozzarella, and basil.",
+                    "price": 9.99,
+                    "stock": 30,
+                    "category": "food",
+                    "image": "https://example.com/image.jpg",
+                    "createdAt": "2024-11-16T23:46:14.787Z",
+                    "updatedAt": "2024-11-16T23:46:14.787Z"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Failed",
+                  "message": "Product not found",
+                  "isSuccess": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update product by ID",
+        "description": "Update a product's information by their ID.",
+        "tags": ["Products"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the product to update",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Updated Product Name"
+                  },
+                  "desc": {
+                    "type": "string",
+                    "example": "Updated description"
+                  },
+                  "price": {
+                    "type": "number",
+                    "example": 10.99
+                  },
+                  "stock": {
+                    "type": "integer",
+                    "example": 20
+                  },
+                  "category": {
+                    "type": "string",
+                    "example": "food"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Product updated successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Success",
+                  "message": "Product updated successfully",
+                  "isSuccess": true,
+                  "data": {
+                    "id": 2,
+                    "name": "Updated Product Name",
+                    "desc": "Updated description",
+                    "price": 10.99,
+                    "stock": 20,
+                    "category": "food",
+                    "updatedAt": "2024-11-17T18:00:00.000Z"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Failed",
+                  "message": "Product not found",
+                  "isSuccess": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete product by ID",
+        "description": "Delete a product by its ID.",
+        "tags": ["Products"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the product to delete",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product deleted successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Success",
+                  "message": "Product deleted successfully",
+                  "isSuccess": true
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Failed",
+                  "message": "Product not found",
+                  "isSuccess": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/carts/admin/all": {
+      "get": {
+        "summary": "Get all carts (Admin)",
+        "description": "Retrieve a list of all carts. Requires authorization.",
+        "tags": ["Carts"],
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved all carts",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Success",
+                  "message": "Success to get all carts",
+                  "isSuccess": true,
+                  "data": [
+                    {
+                      "id": 1,
+                      "amount": "3",
+                      "total": "29.97",
+                      "userId": 1,
+                      "productId": 2,
+                      "createdAt": "2024-11-17T16:43:29.358Z",
+                      "updatedAt": "2024-11-17T16:43:29.358Z"
                     }
                   ]
                 }
@@ -2288,71 +1002,262 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string",
-                  "example": "*"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": 72
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"48-4pejX+ZeuzMCBUGn0YUWXuJO2pA\""
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 02 Nov 2024 14:06:10 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
+            "description": "Unauthorized - Missing or invalid token",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object"
-                },
                 "example": {
                   "status": "Failed",
-                  "message": "Your token is missing!",
+                  "message": "Not Authorized, no token",
                   "isSuccess": false
                 }
               }
             }
           }
         }
+      }
+    },
+    "/carts": {
+      "get": {
+        "summary": "Get cart by user",
+        "description": "Retrieve a list of carts for the currently logged-in user. Requires authorization.",
+        "tags": ["Carts"],
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved carts",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Success",
+                  "message": "Success to get user carts",
+                  "isSuccess": true,
+                  "data": [
+                    {
+                      "id": 1,
+                      "amount": "3",
+                      "total": "29.97",
+                      "userId": 1,
+                      "productId": 2,
+                      "createdAt": "2024-11-17T16:43:29.358Z",
+                      "updatedAt": "2024-11-17T16:43:29.358Z"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Missing or invalid token",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Failed",
+                  "message": "Not Authorized, no token",
+                  "isSuccess": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new cart",
+        "description": "Create a new cart for the logged-in user.",
+        "tags": ["Carts"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "string",
+                    "example": "3"
+                  },
+                  "total": {
+                    "type": "string",
+                    "example": "29.97"
+                  },
+                  "productId": {
+                    "type": "integer",
+                    "example": 2
+                  }
+                },
+                "required": ["amount", "total", "productId"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Cart created successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Success",
+                  "message": "Cart created successfully",
+                  "isSuccess": true,
+                  "data": {
+                    "id": 1,
+                    "amount": "3",
+                    "total": "29.97",
+                    "userId": 1,
+                    "productId": 2,
+                    "createdAt": "2024-11-17T16:43:29.358Z",
+                    "updatedAt": "2024-11-17T16:43:29.358Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Missing required fields",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Failed",
+                  "message": "All fields are required",
+                  "isSuccess": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Missing or invalid token",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Failed",
+                  "message": "Not Authorized, no token",
+                  "isSuccess": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/carts/{id}": {
+      "patch": {
+        "summary": "Update cart by ID",
+        "description": "Update a specific cart's information by their ID.",
+        "tags": ["Carts"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the cart to update",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "string",
+                    "example": "6"
+                  }
+                },
+                "required": ["amount"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Cart updated successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Success",
+                  "message": "Cart updated successfully",
+                  "isSuccess": true,
+                  "data": {
+                    "id": 2,
+                    "amount": "6",
+                    "total": "59.94",
+                    "userId": 1,
+                    "productId": 2,
+                    "updatedAt": "2024-11-17T17:06:51.575Z"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cart not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Failed",
+                  "message": "Cart not found",
+                  "isSuccess": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete cart by ID",
+        "description": "Delete a specific cart by its ID.",
+        "tags": ["Carts"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the cart to delete",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cart deleted successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Success",
+                  "message": "Cart deleted successfully",
+                  "isSuccess": true
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cart not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Failed",
+                  "message": "Cart not found",
+                  "isSuccess": false
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }

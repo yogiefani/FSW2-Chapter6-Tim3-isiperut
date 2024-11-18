@@ -23,10 +23,16 @@ const LoginForm = () => {
       console.log(response.data);
       if (response.data.isSuccess) {
         const token = response.data.data.token;
-        const user = response.data.data.user.name;
+        const userData = {
+          id: response.data.data.user.id,
+          name: response.data.data.user.name,
+          email: response.data.data.user.email,
+          photoProfile: response.data.data.user.photoProfile,
+          role: response.data.data.user.role,
+        };
 
         localStorage.setItem("token", token);
-        localStorage.setItem("user", user);
+        localStorage.setItem("user", JSON.stringify(userData));
         console.log("Login successful");
       }
       toast.success("Login successful");

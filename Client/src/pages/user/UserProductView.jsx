@@ -1,33 +1,23 @@
 import { redirect, useLoaderData } from "react-router-dom";
 import axiosInstance from "../../api/axiosInstance";
-import CardUser from "../../components/Card/CardUser";
-import NavbarForAdmin from "../../components/Navbar/NavbarForAdmin";
-import { checkAccess } from "../../middlewares/Auth";
 import CardProduct from "../../components/Card/CardProduct";
 import Footer from "../../components/Footer/Footer";
+import Navbar from "../../components/Navbar/Navbar";
 
 export const loader = async () => {
   //middleware buat check yang login role admin apa bukan
-  const access = await checkAccess();
 
-  if (!access) {
-    return redirect("/not-found");
-  }
-
-  const response = await axiosInstance.get("/users");
-  const users = response.data.data;
-
-  const productsData = await axiosInstance.get("/products/all");
+  const productsData = await axiosInstance.get("/products");
   const products = productsData.data.data;
 
-  return { users, products };
+  return { products };
 };
 
-function AdminProductDashboard() {
+function ProductView() {
   const { products } = useLoaderData();
   return (
     <>
-      <NavbarForAdmin />
+      <Navbar />
       <div className="m-5 mt-8">
         <h1 className="text-4xl font-semibold text-left">Product On Sales</h1>
       </div>
@@ -50,4 +40,4 @@ function AdminProductDashboard() {
     </>
   );
 }
-export default AdminProductDashboard;
+export default ProductView;
