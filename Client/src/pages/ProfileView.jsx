@@ -47,16 +47,13 @@ const ProfileView = () => {
       <Navbar />
       <div className="min-h-screen bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 py-12">
-          {/* Hero Section */}
           <div className="bg-gradient-to-r from-[#C03822] to-[#A02812] text-white rounded-xl p-8 mb-8">
             <h1 className="text-4xl font-bold mb-2">My Profile</h1>
             <p className="text-white/80">View your account information</p>
           </div>
 
-          {/* Profile Content */}
           <div className="bg-white rounded-xl shadow-lg p-8 space-y-6">
             <div className="flex flex-col md:flex-row gap-8 items-start">
-              {/* Profile Image Section */}
               <div className="relative group">
                 <div className="w-48 h-48 rounded-full overflow-hidden ring-4 ring-[#C03822]/20">
                   <img
@@ -67,7 +64,6 @@ const ProfileView = () => {
                 </div>
               </div>
 
-              {/* Profile Info Section */}
               <div className="flex-1 space-y-6">
                 <div className="flex justify-between items-center">
                   <h2 className="text-3xl font-bold text-gray-800">
@@ -78,7 +74,6 @@ const ProfileView = () => {
                 <div className="divider my-2"></div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Email */}
                   <div className="card bg-base-100 shadow-md hover:shadow-lg transition-shadow">
                     <div className="card-body p-4">
                       <div className="flex items-center gap-3 text-[#C03822]">
@@ -102,7 +97,6 @@ const ProfileView = () => {
                     </div>
                   </div>
 
-                  {/* Phone */}
                   <div className="card bg-base-100 shadow-md hover:shadow-lg transition-shadow">
                     <div className="card-body p-4">
                       <div className="flex items-center gap-3 text-[#C03822]">
@@ -128,7 +122,6 @@ const ProfileView = () => {
                     </div>
                   </div>
 
-                  {/* Address */}
                   <div className="card bg-base-100 shadow-md hover:shadow-lg transition-shadow">
                     <div className="card-body p-4">
                       <div className="flex items-center gap-3 text-[#C03822]">
@@ -160,7 +153,6 @@ const ProfileView = () => {
                     </div>
                   </div>
 
-                  {/* Role */}
                   <div className="card bg-base-100 shadow-md hover:shadow-lg transition-shadow">
                     <div className="card-body p-4">
                       <div className="flex items-center gap-3 text-[#C03822]">
