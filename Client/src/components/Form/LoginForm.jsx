@@ -24,6 +24,7 @@ const LoginForm = () => {
       if (response.data.isSuccess) {
         const token = response.data.data.token;
         const userData = {
+          id: response.data.data.user.id,
           name: response.data.data.user.name,
           email: response.data.data.user.email,
           photoProfile: response.data.data.user.photoProfile,
