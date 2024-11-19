@@ -1,4 +1,4 @@
-import { redirect, useLoaderData } from "react-router-dom";
+import { Link, redirect, useLoaderData } from "react-router-dom";
 import axiosInstance from "../../api/axiosInstance";
 import CardUser from "../../components/Card/CardUser";
 import NavbarForAdmin from "../../components/Navbar/NavbarForAdmin";
@@ -30,6 +30,9 @@ function AdminProductDashboard() {
       <NavbarForAdmin />
       <div className="m-5 mt-8">
         <h1 className="text-4xl font-semibold text-left">Product On Sales</h1>
+        <Link className="btn btn-primary w-32 mt-8" to="/admin-create-product">
+          Create
+        </Link>
       </div>
       <div className="m-5 grid md:grid-cols-3 lg:grid-cols-4 gap-y-10">
         {products.map((product) => (
