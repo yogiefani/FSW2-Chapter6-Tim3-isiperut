@@ -1,46 +1,22 @@
 import React from "react";
 import { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import axiosInstance from "../../api/axiosInstance";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from '../../context/AuthContext';
+
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const { login } = useAuth();
 
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axiosInstance.post("/auth/login", {
-        email,
-        password,
-      });
-
-      console.log(response.data);
-      if (response.data.isSuccess) {
-        const token = response.data.data.token;
-        const userData = {
-          id: response.data.data.user.id,
-          name: response.data.data.user.name,
-          email: response.data.data.user.email,
-          photoProfile: response.data.data.user.photoProfile,
-          role: response.data.data.user.role,
-        };
-
-        localStorage.setItem("token", token);
-        localStorage.setItem("user", JSON.stringify(userData));
-        console.log("Login successful");
-      }
-      toast.success("Login successful");
-
-      navigate("/");
-    } catch (error) {
-      const errorMessage = error?.response?.data?.message || "An error occured";
-      toast.error(errorMessage);
+    const success = await login(email, password);
+    if (success) {
+      navigate('/');
     }
   };
 
@@ -111,9 +87,9 @@ const LoginForm = () => {
         </form>
         <p className="text-sm text-center text-gray-600">
           Don't have an account?{" "}
-          <a href="/register" className="text-indigo-600 hover:text-indigo-500">
+          <Link to="/register" className="text-indigo-600 hover:text-indigo-500">
             Sign up
-          </a>
+          </Link>
         </p>
       </div>{" "}
     </div>

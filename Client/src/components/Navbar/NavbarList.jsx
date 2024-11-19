@@ -21,6 +21,11 @@ const NavbarList = () => {
           Products
         </NavLink>
       </li>
+      <li>
+        <NavLink to="/my-cart" className="capitalize text-white">
+          My Cart
+        </NavLink>
+      </li>
       <li className="dropdown">
         <label
           tabIndex={0}

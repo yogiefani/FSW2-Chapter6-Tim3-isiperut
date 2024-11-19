@@ -14,17 +14,16 @@ const CardProduct = ({
   id,
   deletedAt,
 }) => {
-  // Get user role from localStorage
   const user = JSON.parse(localStorage.getItem("user"));
   const userRole = user?.role;
 
   const handleDelete = async (e) => {
-    e.stopPropagation(); // Prevent event propagation
-    e.preventDefault(); // Prevent default link behavior
+    e.stopPropagation();
+    e.preventDefault();
     try {
       await axiosInstance.delete(`/products/${id}`);
       toast.info("Product deleted successfully");
-      window.location.reload(); // Re-fetch or reload the page
+      window.location.reload();
     } catch (error) {
       toast.error("Failed to delete product");
     }
@@ -60,7 +59,6 @@ const CardProduct = ({
           <div className="font-light text-left">Stock: {stock}</div>
           <p className="text-left">{description}</p>
 
-          {/* Conditional rendering for admin actions */}
           {userRole === "admin" && (
             <div className="card-actions justify-end items-end gap-4">
               {!deletedAt && (
@@ -68,7 +66,7 @@ const CardProduct = ({
                   <Link
                     className="btn btn-accent"
                     to={`/admin-dashboard/product/${id}/edit`}
-                    onClick={(e) => e.stopPropagation()} // Prevent link propagation
+                    onClick={(e) => e.stopPropagation()}
                   >
                     <BsPencilSquare />
                   </Link>

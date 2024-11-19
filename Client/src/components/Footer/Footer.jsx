@@ -19,12 +19,12 @@ const items = [
   {
     name: "Instagram",
     icon: FaInstagram,
-    link: "https://www.instagram.com/",
+    link: "https://www.instagram.com/irfanmuriaa/",
   },
   {
     name: "Tiktok",
     icon: FaTiktok,
-    link: "https://www.tiktok.com/",
+    link: "https://www.tiktok.com/@irpanzy",
   },
 ];
 
@@ -34,7 +34,15 @@ const Footer = () => {
       <footer className="bg-custom-black text-custom-white h-auto font-karla mt-10">
         <div className="footer container mx-auto p-20 gap-x-14 text-left">
           <aside>
-            <img src="src/assets/logo.png" alt="Logo" className="mb-6" />
+            <a className="flex justify-center items-center gap-6 mb-6">
+              <img
+                src="public/images/isi perut.png"
+                alt="Logo"
+                className=""
+                width="64px"
+              />
+              <p className="text-4xl font-bold text-orange-400">ISI PERUT</p>
+            </a>
             <p className="text-base font-cambay mb-14">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br></br>
               Suspendisse blandit placerat ex, vitae accumsan enim<br></br>
@@ -86,7 +94,9 @@ const Footer = () => {
                 alt="Mail Icon"
                 className="h-6 w-6"
               />
-              <p className="text-lg font-semibold">your@domain.com</p>
+              <p className="text-lg font-semibold">
+                customer.service@isiperut.com
+              </p>
             </div>
             <div className="flex items-center space-x-2">
               <img
@@ -99,7 +109,9 @@ const Footer = () => {
           </nav>
 
           <nav>
-            <h6 className="text-custom-orange text-2xl font-medium mb-8">Company</h6>
+            <h6 className="text-custom-orange text-2xl font-medium mb-8">
+              Company
+            </h6>
             <ul className="space-y-3">
               <li>
                 <a href="#" className="link link-hover text-lg font-bold">

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axiosInstance from "../../api/axiosInstance";
 
@@ -137,9 +137,9 @@ const RegisterForm = () => {
         </form>
         <p className="text-sm text-center text-gray-600">
           Already have an account?{" "}
-          <a href="/login" className="text-indigo-600 hover:text-indigo-500">
+          <Link to="/login" className="text-indigo-600 hover:text-indigo-500">
             Sign in
-          </a>
+          </Link>
         </p>
       </div>
     </div>

@@ -1,9 +1,11 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import NavbarListForAdmin from "./NavbarListForAdmin";
+import { useAuth } from "../../context/AuthContext";
 
 const NavbarForAdmin = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const {logout} = useAuth();
 
   const getusersData = () => {
     const usersData = localStorage.getItem("user");
@@ -16,12 +18,6 @@ const NavbarForAdmin = () => {
       console.error("Error parsing JSON:", error);
       return null;
     }
-  };
-
-  const logoutHandler = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    window.location.href = "/login";
   };
 
   const toggleDropdown = () => {
@@ -98,7 +94,7 @@ const NavbarForAdmin = () => {
                   <NavLink to="/profile">Profile</NavLink>
                 </li>
                 <li>
-                  <button onClick={logoutHandler}>Logout</button>
+                  <button onClick={logout}>Logout</button>
                 </li>
               </ul>
             )}

@@ -9,7 +9,6 @@ function ProductDetails() {
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
 
-  // Fetch product details when the component loads
   useState(() => {
     const fetchProduct = async () => {
       try {
@@ -24,7 +23,6 @@ function ProductDetails() {
 
   const handleAddToCart = async () => {
     try {
-      // Get the user object from localStorage
       const user = JSON.parse(localStorage.getItem("user"));
 
       if (!user || !user.id) {
@@ -36,7 +34,7 @@ function ProductDetails() {
         amount: quantity,
         total: quantity * product.price,
         productId: product.id,
-        userId: user.id, // Use the user.id from the localStorage user object
+        userId: user.id,
       };
 
       const response = await axiosInstance.post(`/carts`, payload);
@@ -55,7 +53,7 @@ function ProductDetails() {
   return (
     <>
       <Navbar />
-      <div className="grid-cols-3 grid p-4 gap-4 justify-evenly">
+      <div className="grid-cols-3 grid p-4 gap-8 justify-evenly">
         <div className="max-h-[300px] overflow-hidden rounded-xl">
           <img
             src={product.image}
@@ -68,7 +66,7 @@ function ProductDetails() {
           <div className="flex flex-col md:flex-row gap-5">
             <div className="flex flex-col gap-4">
               <p className="text-lg">{product.desc}</p>
-              <p className="text-xl text-primary">
+              <p className="text-4xl text-primary">
                 $
                 {product.price.toLocaleString("us-US", {
                   style: "currency",
@@ -80,10 +78,9 @@ function ProductDetails() {
           </div>
         </div>
         <div className="card card-bordered border-4 flex flex-col justify-center items-center h-full">
-          {/* Quantity Input and Available Stock */}
           <div className="flex gap-2 items-center justify-center">
             <label htmlFor="quantity" className="font-bold">
-              Jumlah Produk:
+              Product Total:
             </label>
             <input
               type="number"
@@ -95,11 +92,10 @@ function ProductDetails() {
               className="input input-bordered w-20"
             />
             <span className="text-sm font-light">
-              Produk Tersedia: {product.stock}
+              Available Stock: {product.stock}
             </span>
           </div>
 
-          {/* Total Price */}
           <div className="text-lg font-bold text-primary mt-4">
             Total:
             {quantity * product.price
@@ -108,11 +104,10 @@ function ProductDetails() {
                     style: "currency",
                     currency: "USD",
                   })
-                  .replace(/^\$/, "") // Remove the extra $ symbol added by toLocaleString
+                  .replace(/^\$/, "")
               : "0.00"}
           </div>
 
-          {/* Add to Cart Button */}
           <button
             onClick={handleAddToCart}
             className="btn btn-primary mt-4"
@@ -123,7 +118,7 @@ function ProductDetails() {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default ProductDetails;
+export default ProductDetails
