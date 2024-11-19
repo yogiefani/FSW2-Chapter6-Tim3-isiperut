@@ -52,7 +52,7 @@ function HomeView() {
       <div className="m-5 mt-8">
         <h1 className="text-4xl font-semibold text-left">Product On Sales</h1>
       </div>
-      <div className="m-5 grid md:grid-cols-3 lg:grid-cols-4 gap-y-10">
+      {/* <div className="m-5 grid md:grid-cols-3 lg:grid-cols-4 gap-y-10">
         {products.map((product) => (
           <CardProduct
             key={product.id}
@@ -66,7 +66,7 @@ function HomeView() {
             deletedAt={product.deletedAt}
           />
         ))}
-      </div>
+      </div> */}
       <Footer />
     </>
   );
