@@ -1,3 +1,4 @@
+import { useAuth } from "../context/AuthContext";
 import { useLoaderData } from "react-router-dom";
 import axiosInstance from "../api/axiosInstance";
 import CardProduct from "../components/Card/CardProduct";
@@ -29,41 +30,41 @@ export const loader = async () => {
 
 function HomeView() {
   const { products } = useLoaderData();
-  const [isAdmin, setIsAdmin] = useState(false);
+  const { isAdmin, isLoading } = useAuth();
 
-  useEffect(() => {
-    const verifyAdmin = async () => {
-      try {
-        const isAdminUser = await checkAccess();
-        setIsAdmin(isAdminUser);
-      } catch (error) {
-        console.error("Error checking admin access:", error);
-        setIsAdmin(false);
-      }
-    };
-
-    verifyAdmin();
-  }, []);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
       {isAdmin ? <NavbarForAdmin /> : <Navbar />}
-      <Hero/>
-      <ProductSection/>
-      <ProductAdvantages/>
-      <FeaturesSection/>
-      <OnlineOrder/>
-      <Menu/>
-      <OrderNow/>
-      <NewMenu/>
-      <Testimoni/>
-      <BlogSection/>
+      <Hero />
+      <ProductSection />
+      <ProductAdvantages />
+      <FeaturesSection />
+      <OnlineOrder />
+      <Menu />
+      <OrderNow />
+      <NewMenu />
+      <Testimoni />
+      <BlogSection />
       <div className="m-5 mt-8">
         <h1 className="text-4xl font-semibold text-left">Product On Sales</h1>
       </div>
       <div className="m-5 grid md:grid-cols-3 lg:grid-cols-4 gap-y-10">
         {products.map((product) => (
-          <CardProduct key={product.id} id={product.id} image={product.image} name={product.name} description={product.desc} price={product.price} stock={product.stock} category={product.category} deletedAt={product.deletedAt} />
+          <CardProduct
+            key={product.id}
+            id={product.id}
+            image={product.image}
+            name={product.name}
+            description={product.desc}
+            price={product.price}
+            stock={product.stock}
+            category={product.category}
+            deletedAt={product.deletedAt}
+          />
         ))}
       </div>
       <Footer />
