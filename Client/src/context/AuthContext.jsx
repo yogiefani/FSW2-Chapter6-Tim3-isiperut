@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
 import { toast } from "react-toastify";
 import axiosInstance from "../api/axiosInstance";
 
@@ -10,34 +10,6 @@ export const AuthProvider = ({ children }) => {
     return savedUser ? JSON.parse(savedUser) : null;
   });
   const [token, setToken] = useState(() => localStorage.getItem("token"));
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const verifyAdminStatus = async () => {
-      if (!token) {
-        setIsAdmin(false);
-        setIsLoading(false);
-        return;
-      }
-
-      try {
-        setIsLoading(true);
-        const response = await axiosInstance.get("/auth/current");
-        setIsAdmin(response.data.data.role === "admin");
-      } catch (error) {
-        console.error("Error verifying admin status:", error);
-        setIsAdmin(false);
-        if (error.response?.status === 401) {
-          logout();
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    verifyAdminStatus();
-  }, [token]);
 
   const login = async (email, password) => {
     try {
@@ -61,7 +33,6 @@ export const AuthProvider = ({ children }) => {
 
         setToken(token);
         setUser(userData);
-        setIsAdmin(userData.role === "admin");
 
         toast.success("Login successful");
         return true;
@@ -79,7 +50,6 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("user");
     setToken(null);
     setUser(null);
-    setIsAdmin(false);
     window.location.href = "/login";
   };
 
@@ -89,8 +59,6 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     isAuthenticated: !!token,
-    isAdmin,
-    isLoading,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
