@@ -29,78 +29,78 @@ import { loader as MyCartLoader } from "./pages/MyCartView";
 import AdminCreateProductView from "./pages/admin/AdminCreateProductView";
 
 const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <HomeView />,
-        loader: HomeProductLoader,
-    },
-    {
-        path: "/products",
-        element: <ProductView />,
-        loader: ProductProductLoader,
-    },
-    {
-        path: "/product/:id",
-        element: <ProductDetailView />,
-    },
-    {
-        path: "/my-cart",
-        element: (
-            <PrivateRoute>
-                <MyCartView />
-            </PrivateRoute>
-        ),
-        loader: MyCartLoader,
-    },
-    {
-        path: "/profile",
-        element: <ProfileView />,
-    },
-    {
-        path: "/admin-dashboard",
-        element: <AdminDashboard />,
-        loader: AdminHomeLoader,
-    },
-    {
-        path: "/admin-dashboard/user/:id/edit",
-        element: <AdminEditUserView />,
-    },
-    {
-        path: "/admin-dashboard-product",
-        element: <AdminProductDashboard />,
-        loader: AdminProductLoader,
-    },
-    {
+  {
+    path: "/",
+    element: <HomeView />,
+    loader: HomeProductLoader,
+  },
+  {
+    path: "/products",
+    element: <ProductView />,
+    loader: ProductProductLoader,
+  },
+  {
+    path: "/product/:id",
+    element: <ProductDetailView />,
+  },
+  {
+    path: "/my-cart",
+    element: (
+      <PrivateRoute>
+        <MyCartView />
+      </PrivateRoute>
+    ),
+    loader: MyCartLoader,
+  },
+  {
+    path: "/profile",
+    element: <ProfileView />,
+  },
+  {
+    path: "/admin-dashboard",
+    element: <AdminDashboard />,
+    loader: AdminHomeLoader,
+  },
+  {
+    path: "/admin-dashboard/user/:id/edit",
+    element: <AdminEditUserView />,
+  },
+  {
+    path: "/admin-dashboard-product",
+    element: <AdminProductDashboard />,
+    loader: AdminProductLoader,
+  },
+  {
     path: "/admin-create-product",
     element: <AdminCreateProductView />,
     loader: AdminProductLoader,
   },
   {
-        path: "/admin-dashboard/product/:id/edit",
-        element: <AdminEditProductView />,
-    },
-    {
-        path: "/register",
-        element: <RegisterView />,
-    },
-    {
-        path: "/login",
-        element: <LoginView />,
-    },
-    {
-        path: "/*",
-        element: <NotFoundView />,
-    },
+    path: "/admin-dashboard/product/:id/edit",
+    element: <AdminEditProductView />,
+  },
+  {
+    path: "/register",
+    element: <RegisterView />,
+  },
+  {
+    path: "/login",
+    element: <LoginView />,
+  },
+  {
+    path: "/*",
+    element: <NotFoundView />,
+  },
 ]);
 
 function App() {
-    return (
-        <>
-            <AuthProvider>
-                <RouterProvider router={router} />
-            </AuthProvider>
-        </>
-    );
+  return (
+    <>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </>
+  );
 }
 
 export default App;
