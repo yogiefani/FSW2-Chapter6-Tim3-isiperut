@@ -19,12 +19,12 @@ const items = [
   {
     name: "Instagram",
     icon: FaInstagram,
-    link: "https://www.instagram.com/",
+    link: "https://www.instagram.com/irfanmuriaa/",
   },
   {
     name: "Tiktok",
     icon: FaTiktok,
-    link: "https://www.tiktok.com/",
+    link: "https://www.tiktok.com/@irpanzy",
   },
 ];
 
