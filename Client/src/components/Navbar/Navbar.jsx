@@ -74,35 +74,44 @@ const Navbar = () => {
       </div>
 
       <div className="navbar-end">
-        <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost btn-circle avatar"
-            onClick={toggleDropdown}
-          >
-            <div className="w-10 rounded-full">
-              <img alt="user profile" src={user?.photoProfile} />
+        {user ? (
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+              onClick={toggleDropdown}
+            >
+              <div className="w-10 rounded-full">
+                <img alt="user profile" src={user?.photoProfile} />
+              </div>
             </div>
+            {isDropdownOpen && (
+              <ul className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                <li className="p-2">
+                  <div className="flex flex-col">
+                    <span className="font-bold">{user?.name}</span>
+                    <span className="text-sm text-gray-500">{user?.email}</span>
+                  </div>
+                </li>
+                <div className="divider my-0"></div>
+                <li>
+                  <NavLink to="/profile">Profile</NavLink>
+                </li>
+                <li>
+                  <button onClick={logoutHandler}>Logout</button>
+                </li>
+              </ul>
+            )}
           </div>
-          {isDropdownOpen && (
-            <ul className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-              <li className="p-2">
-                <div className="flex flex-col">
-                  <span className="font-bold">{user?.name}</span>
-                  <span className="text-sm text-gray-500">{user?.email}</span>
-                </div>
-              </li>
-              <div className="divider my-0"></div>
-              <li>
-                <NavLink to="/profile">Profile</NavLink>
-              </li>
-              <li>
-                <button onClick={logoutHandler}>Logout</button>
-              </li>
-            </ul>
-          )}
-        </div>
+        ) : (
+          <NavLink
+            to="/login"
+            className="btn btn-ghost text-white hover:text-orange-400"
+          >
+            Login
+          </NavLink>
+        )}
       </div>
     </div>
   );
