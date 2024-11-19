@@ -91,7 +91,7 @@ function App() {
     return (
         <>
             <AuthProvider>
-                <RouterProvider router={router} />;
+                <RouterProvider router={router} />
             </AuthProvider>
         </>
     );
