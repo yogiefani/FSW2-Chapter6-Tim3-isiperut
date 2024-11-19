@@ -8,7 +8,7 @@ export const loader = async () => {
   const response = await axiosInstance.get("/users");
   const users = response.data.data;
 
-  const productsData = await axiosInstance.get("/products/all");
+  const productsData = await axiosInstance.get("/products");
   const products = productsData.data.data;
 
   return { users, products };
