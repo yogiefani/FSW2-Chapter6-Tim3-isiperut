@@ -13,7 +13,6 @@ export const AuthProvider = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Verify admin status whenever user or token changes
   useEffect(() => {
     const verifyAdminStatus = async () => {
       if (!token) {
