@@ -31,7 +31,7 @@ const items = [
 const Footer = () => {
   return (
     <>
-      <footer className="bg-custom-black text-custom-white h-auto font-karla mt-10">
+      <footer className="bg-custom-black text-custom-white h-auto font-karla">
         <div className="footer container mx-auto p-20 gap-x-14 text-left">
           <aside>
             <a className="flex justify-center items-center gap-6 mb-6">

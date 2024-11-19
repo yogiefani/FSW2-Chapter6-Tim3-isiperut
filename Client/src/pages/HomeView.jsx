@@ -49,9 +49,9 @@ function HomeView() {
       <NewMenu />
       <Testimoni />
       <BlogSection />
-      <div className="m-5 mt-8">
+      {/* <div className="m-5 mt-8">
         <h1 className="text-4xl font-semibold text-left">Product On Sales</h1>
-      </div>
+      </div> */}
       {/* <div className="m-5 grid md:grid-cols-3 lg:grid-cols-4 gap-y-10">
         {products.map((product) => (
           <CardProduct
