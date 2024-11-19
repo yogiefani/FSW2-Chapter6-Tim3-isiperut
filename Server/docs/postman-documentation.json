@@ -1,0 +1,2797 @@
+{
+	"info": {
+		"_postman_id": "7ad369ac-6e15-407a-9acb-6ca0b29563d1",
+		"name": "ISI PERUT - Challenge Chapter 6 Tim 3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38691790"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Auth - Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin@example.com\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}auth/login",
+							"host": [
+								"{{base_url}}auth"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"admin@example.com\",\r\n    \"password\": \"password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}auth/login",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "663"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"297-O7aHswbcmR2lUPTMxSGJodHrq7Y\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 12:41:00 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Success\",\n    \"message\": \"Login success\",\n    \"isSuccess\": true,\n    \"data\": {\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJBZG1pbiIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzE4NDcyNjAsImV4cCI6MTczMTkzMzY2MH0.ovVmFr7VQbW40K7RGDjbg1DbdzZb7ttH4aBixo1m5Jo\",\n        \"user\": {\n            \"id\": 1,\n            \"name\": \"Admin\",\n            \"email\": \"admin@example.com\",\n            \"password\": \"$2b$10$lFWa4YCXeN2Wu0YvPbR.qed.RJyynpdosM9pmGATe6otmtR36wtjm\",\n            \"address\": \"Jakarta\",\n            \"phone\": \"08123456789\",\n            \"role\": \"admin\",\n            \"photoProfile\": \"https://ik.imagekit.io/9h1gnwzay/default-image.jpg?updatedAt=1728904313272\",\n            \"createdAt\": \"2024-11-16T23:46:14.547Z\",\n            \"updatedAt\": \"2024-11-16T23:46:14.549Z\"\n        }\n    }\n}"
+						},
+						{
+							"name": "400 - Empty Request Body",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}auth/login",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "92"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"5c-a4PUimTwigBS8gF0/ed/4vubzB0\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 12:34:36 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Failed\",\n    \"message\": \"Email and password is required\",\n    \"isSuccess\": false,\n    \"data\": null\n}"
+						},
+						{
+							"name": "401 - User Not Found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"tidakadaemail@mail.com\",\r\n    \"password\": \"admin123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}auth/login",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "76"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4c-Hv7vrGVA+WZ66DTXnnOBFAViOcc\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 12:39:57 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Failed\",\n    \"message\": \"User not found\",\n    \"isSuccess\": false,\n    \"data\": null\n}"
+						},
+						{
+							"name": "401 - Incorrect Password",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"admin@example.com\",\r\n    \"password\": \"passwordsalah\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}auth/login",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "83"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"53-H60B6JMpw8IH2f2NUIg5mB8bsos\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 12:40:36 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Failed\",\n    \"message\": \"Password is incorrect\",\n    \"isSuccess\": false,\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Auth - Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Rafif\",\r\n    \"email\": \"rafif@example.com\",\r\n    \"password\": \"password\",\r\n    \"address\": \"Batam\",\r\n    \"phone\": \"08214365879\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}auth/register",
+							"host": [
+								"{{base_url}}auth"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "201 - Account Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Rafif\",\r\n    \"email\": \"rafif@example.com\",\r\n    \"password\": \"password\",\r\n    \"address\": \"Batam\",\r\n    \"phone\": \"08214365879\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}auth/register",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "360"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"168-vrmnqEkz49RILRdd8l3MnxfQ4Y4\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 13:56:40 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Success\",\n    \"message\": \"User created successfully\",\n    \"isSuccess\": true,\n    \"data\": {\n        \"id\": 3,\n        \"name\": \"Rafif\",\n        \"email\": \"rafif@example.com\",\n        \"password\": \"$2b$10$ORfg2nZgxRMRVTTqk0WX4Oi2CVMokFYe.7sISC1GiDcVdB0pJOT8i\",\n        \"address\": \"Batam\",\n        \"phone\": \"08214365879\",\n        \"role\": \"user\",\n        \"updatedAt\": \"2024-11-17T13:56:40.183Z\",\n        \"createdAt\": \"2024-11-17T13:56:40.183Z\",\n        \"photoProfile\": null\n    }\n}"
+						},
+						{
+							"name": "400 - Empty Request Body",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}auth/register",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "85"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"55-Re3LxyfJFOz0C8NKAvvOH8gy5p0\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 12:47:45 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Failed\",\n    \"message\": \"All fields are required\",\n    \"isSuccess\": false,\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Auth - Current Login",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}auth/current",
+							"host": [
+								"{{base_url}}auth"
+							],
+							"path": [
+								"current"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Success Get Current User",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}auth/current",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"current"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "429"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1ad-DaRmFHYq6DoT138+wYa5yXk7BMw\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 14:06:00 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Success\",\n    \"message\": \"Success to get user\",\n    \"isSuccess\": true,\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"Admin\",\n        \"email\": \"admin@example.com\",\n        \"password\": \"$2b$10$lFWa4YCXeN2Wu0YvPbR.qed.RJyynpdosM9pmGATe6otmtR36wtjm\",\n        \"address\": \"Jakarta\",\n        \"phone\": \"08123456789\",\n        \"role\": \"admin\",\n        \"photoProfile\": \"https://ik.imagekit.io/9h1gnwzay/default-image.jpg?updatedAt=1728904313272\",\n        \"createdAt\": \"2024-11-16T23:46:14.547Z\",\n        \"updatedAt\": \"2024-11-16T23:46:14.549Z\"\n    }\n}"
+						},
+						{
+							"name": "401 - Missing Token",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}auth/current",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"current"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "72"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"48-4pejX+ZeuzMCBUGn0YUWXuJO2pA\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 13:58:09 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Failed\",\n    \"message\": \"Your token is missing!\",\n    \"isSuccess\": false\n}"
+						},
+						{
+							"name": "401 - Not Authorized",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}auth/current",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"current"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "76"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4c-FcuZe4uOVBYeoVdZyx+AeiNKR6o\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 14:03:33 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Failed\",\n    \"message\": \"Not Authorized as an Admin\",\n    \"isSuccess\": false\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "Cart - Get All Cart",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}carts/admin/all",
+							"host": [
+								"{{base_url}}carts"
+							],
+							"path": [
+								"admin",
+								"all"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "401 - Not Authorized",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}carts/admin/all",
+									"host": [
+										"{{base_url}}carts"
+									],
+									"path": [
+										"admin",
+										"all"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "56"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"38-1/2DrK8JWIEMB8NLZOEDBKeZ5Cs\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 18:14:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Failed\",\n    \"message\": \"Not Authorized, no token\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Cart - Get Cart By User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}carts",
+							"host": [
+								"{{base_url}}carts"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Success Get Cart By User",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}carts",
+									"host": [
+										"{{base_url}}carts"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "224"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e0-Enty2e7P3UcoSPr35BtgBPeiTmc\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 16:46:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Success\",\n    \"message\": \"Success to get all carts\",\n    \"isSuccess\": true,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"amount\": \"3\",\n            \"total\": \"29.97\",\n            \"userId\": 1,\n            \"productId\": 2,\n            \"createdAt\": \"2024-11-17T16:43:29.358Z\",\n            \"updatedAt\": \"2024-11-17T16:43:29.358Z\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Cart - Create Cart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": \"3\",\r\n    \"total\": \"29.97\",\r\n    \"productId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}carts",
+							"host": [
+								"{{base_url}}carts"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "201 - Cart Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": \"3\",\r\n    \"total\": \"29.97\",\r\n    \"productId\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}carts",
+									"host": [
+										"{{base_url}}carts"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "223"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"df-JHdYCS/k3Iw2ku12lWxs2IUepi0\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 16:43:29 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Success\",\n    \"message\": \"Cart created successfully\",\n    \"isSuccess\": true,\n    \"data\": {\n        \"id\": 1,\n        \"amount\": \"3\",\n        \"total\": \"29.97\",\n        \"userId\": 1,\n        \"productId\": 2,\n        \"updatedAt\": \"2024-11-17T16:43:29.358Z\",\n        \"createdAt\": \"2024-11-17T16:43:29.358Z\"\n    }\n}"
+						},
+						{
+							"name": "400 - Empty Request Body",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}carts",
+									"host": [
+										"{{base_url}}carts"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "85"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"55-Re3LxyfJFOz0C8NKAvvOH8gy5p0\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 16:44:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Failed\",\n    \"message\": \"All fields are required\",\n    \"isSuccess\": false,\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Cart - Update Cart",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": \"6\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}carts/2",
+							"host": [
+								"{{base_url}}carts"
+							],
+							"path": [
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Success Update  Cart",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": \"6\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}carts/2",
+									"host": [
+										"{{base_url}}carts"
+									],
+									"path": [
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "250"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"fa-4H/y42H46OtMOKCGpO4qk23p6U0\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 17:06:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Success\",\n    \"message\": \"Cart updated successfully\",\n    \"isSuccess\": true,\n    \"data\": {\n        \"id\": 2,\n        \"amount\": \"6\",\n        \"total\": \"59.94\",\n        \"userId\": 1,\n        \"productId\": 2,\n        \"createdAt\": \"2024-11-17T16:50:38.075Z\",\n        \"updatedAt\": \"2024-11-17T17:06:51.575Z\",\n        \"product\": {\n            \"price\": \"9.99\"\n        }\n    }\n}"
+						},
+						{
+							"name": "404 - Cart Not Found",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}carts/8",
+									"host": [
+										"{{base_url}}carts"
+									],
+									"path": [
+										"8"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "85"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"55-Re3LxyfJFOz0C8NKAvvOH8gy5p0\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 17:07:33 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Failed\",\n    \"message\": \"All fields are required\",\n    \"isSuccess\": false,\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Cart - Delete Cart",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}carts/2",
+							"host": [
+								"{{base_url}}carts"
+							],
+							"path": [
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Success Delete Cart",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}carts/1",
+									"host": [
+										"{{base_url}}carts"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "84"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"54-/jqFDCl38ri2spWdDDXYX/X4/9U\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 16:48:30 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Success\",\n    \"message\": \"Success to delete cart\",\n    \"isSuccess\": true,\n    \"data\": null\n}"
+						},
+						{
+							"name": "404 - Cart Not Found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}carts/2",
+									"host": [
+										"{{base_url}}carts"
+									],
+									"path": [
+										"2"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "76"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4c-NbKzbwJdMtK5+4Hx4i8/K6JH1w4\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 16:49:45 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Failed\",\n    \"message\": \"Cart not found\",\n    \"isSuccess\": false,\n    \"data\": null\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Product - Get All Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}products/all",
+							"host": [
+								"{{base_url}}products"
+							],
+							"path": [
+								"all"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Success Get All Product",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}products/all",
+									"host": [
+										"{{base_url}}products"
+									],
+									"path": [
+										"all"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "3431"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"d67-rTZ40dRwVfJmDSzIErd5zRAJSjc\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 18:11:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Success\",\n    \"message\": \"Success to get products\",\n    \"isSuccess\": true,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"Spaghetti Carbonara\",\n            \"desc\": \"Creamy Italian pasta with a rich sauce made from eggs, cheese, pancetta, and black pepper.\",\n            \"price\": \"12.99\",\n            \"stock\": 50,\n            \"category\": \"food\",\n            \"image\": \"https://ik.imagekit.io/ft0mydzbzq/spaghetti-carbonara_16-11-2024.jpeg?updatedAt=1731762391300\",\n            \"deletedAt\": null,\n            \"createdAt\": \"2024-11-16T23:46:14.787Z\",\n            \"updatedAt\": \"2024-11-16T23:46:14.787Z\"\n        },\n        {\n            \"id\": 3,\n            \"name\": \"Chocolate Milkshake\",\n            \"desc\": \"Delicious and creamy milkshake made with rich chocolate and topped with whipped cream.\",\n            \"price\": \"4.99\",\n            \"stock\": 100,\n            \"category\": \"drink\",\n            \"image\": \"https://ik.imagekit.io/ft0mydzbzq/chocolate-milkshake-16-11-2024.jpg?updatedAt=1731762622329\",\n            \"deletedAt\": null,\n            \"createdAt\": \"2024-11-16T23:46:14.787Z\",\n            \"updatedAt\": \"2024-11-16T23:46:14.787Z\"\n        },\n        {\n            \"id\": 4,\n            \"name\": \"Caesar Salad\",\n            \"desc\": \"Fresh romaine lettuce, Parmesan cheese, croutons, and Caesar dressing.\",\n            \"price\": \"7.99\",\n            \"stock\": 40,\n            \"category\": \"food\",\n            \"image\": \"https://ik.imagekit.io/ft0mydzbzq/chicken-caesar-salad-16-11-2024.jpeg?updatedAt=1731762622865\",\n            \"deletedAt\": null,\n            \"createdAt\": \"2024-11-16T23:46:14.787Z\",\n            \"updatedAt\": \"2024-11-16T23:46:14.787Z\"\n        },\n        {\n            \"id\": 5,\n            \"name\": \"Orange Juice\",\n            \"desc\": \"Freshly squeezed orange juice, perfect for a healthy and refreshing drink.\",\n            \"price\": \"3.49\",\n            \"stock\": 75,\n            \"category\": \"drink\",\n            \"image\": \"https://ik.imagekit.io/ft0mydzbzq/orange-juice-16-11-2024.jpg?updatedAt=1731762622174\",\n            \"deletedAt\": null,\n            \"createdAt\": \"2024-11-16T23:46:14.787Z\",\n            \"updatedAt\": \"2024-11-16T23:46:14.787Z\"\n        },\n        {\n            \"id\": 13,\n            \"name\": \"Beef Cheese Burger\",\n            \"desc\": \"Juicy beef patty topped with melted cheese in a soft bun.\",\n            \"price\": \"5.99\",\n            \"stock\": 100,\n            \"category\": \"food\",\n            \"image\": \"https://ik.imagekit.io/raaapiiip/image-burger.jpg_-6g-B5dTK.jpg\",\n            \"deletedAt\": null,\n            \"createdAt\": \"2024-11-17T16:18:18.420Z\",\n            \"updatedAt\": \"2024-11-17T16:18:18.420Z\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Neapolitan Pizza\",\n            \"desc\": \"Classic Neapolitan pizza topped with fresh tomatoes, mozzarella, and basil.\",\n            \"price\": \"9.99\",\n            \"stock\": 30,\n            \"category\": \"food\",\n            \"image\": \"https://ik.imagekit.io/ft0mydzbzq/Margarita%20Pizza-16-11-2024.jpg?updatedAt=1731762623110\",\n            \"deletedAt\": null,\n            \"createdAt\": \"2024-11-16T23:46:14.787Z\",\n            \"updatedAt\": \"2024-11-17T16:27:23.866Z\"\n        },\n        {\n            \"id\": 12,\n            \"name\": \"Beef Cheese Burger\",\n            \"desc\": \"Juicy beef patty topped with melted cheese in a soft bun.\",\n            \"price\": \"5.99\",\n            \"stock\": 100,\n            \"category\": \"food\",\n            \"image\": null,\n            \"deletedAt\": \"2024-11-17T16:22:53.394Z\",\n            \"createdAt\": \"2024-11-17T16:17:54.611Z\",\n            \"updatedAt\": \"2024-11-17T16:17:54.611Z\"\n        },\n        {\n            \"id\": 11,\n            \"name\": \"Beef Cheese Burger\",\n            \"desc\": \"Juicy beef patty topped with melted cheese in a soft bun.\",\n            \"price\": \"5.99\",\n            \"stock\": 100,\n            \"category\": \"food\",\n            \"image\": null,\n            \"deletedAt\": \"2024-11-17T16:22:25.480Z\",\n            \"createdAt\": \"2024-11-17T16:17:31.802Z\",\n            \"updatedAt\": \"2024-11-17T16:17:31.802Z\"\n        },\n        {\n            \"id\": 10,\n            \"name\": \"Beef Cheese Burger\",\n            \"desc\": \"Juicy beef patty topped with melted cheese in a soft bun.\",\n            \"price\": \"5.99\",\n            \"stock\": 100,\n            \"category\": \"food\",\n            \"image\": null,\n            \"deletedAt\": \"2024-11-17T16:22:22.580Z\",\n            \"createdAt\": \"2024-11-17T16:08:42.307Z\",\n            \"updatedAt\": \"2024-11-17T16:08:42.307Z\"\n        },\n        {\n            \"id\": 9,\n            \"name\": \"Beef Cheese Burger\",\n            \"desc\": \"Juicy beef patty topped with melted cheese in a soft bun.\",\n            \"price\": \"5.99\",\n            \"stock\": 100,\n            \"category\": \"food\",\n            \"image\": null,\n            \"deletedAt\": \"2024-11-17T16:22:18.669Z\",\n            \"createdAt\": \"2024-11-17T16:00:03.265Z\",\n            \"updatedAt\": \"2024-11-17T16:00:03.265Z\"\n        }\n    ],\n    \"pagination\": {\n        \"totalProducts\": 6,\n        \"totalPages\": 1,\n        \"currentPage\": 1,\n        \"productsPerPage\": 10\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Product - Get All Product (No Deleted)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}products",
+							"host": [
+								"{{base_url}}products"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Success Get All Product (No Deleted)",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}products",
+									"host": [
+										"{{base_url}}products"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2312"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"908-tJGRtFR/JfDVEb+M1wjoY6GWVco\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 18:13:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Success\",\n    \"message\": \"Success to get products\",\n    \"isSuccess\": true,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"Spaghetti Carbonara\",\n            \"desc\": \"Creamy Italian pasta with a rich sauce made from eggs, cheese, pancetta, and black pepper.\",\n            \"price\": \"12.99\",\n            \"stock\": 50,\n            \"category\": \"food\",\n            \"image\": \"https://ik.imagekit.io/ft0mydzbzq/spaghetti-carbonara_16-11-2024.jpeg?updatedAt=1731762391300\",\n            \"deletedAt\": null,\n            \"createdAt\": \"2024-11-16T23:46:14.787Z\",\n            \"updatedAt\": \"2024-11-16T23:46:14.787Z\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Neapolitan Pizza\",\n            \"desc\": \"Classic Neapolitan pizza topped with fresh tomatoes, mozzarella, and basil.\",\n            \"price\": \"9.99\",\n            \"stock\": 30,\n            \"category\": \"food\",\n            \"image\": \"https://ik.imagekit.io/ft0mydzbzq/Margarita%20Pizza-16-11-2024.jpg?updatedAt=1731762623110\",\n            \"deletedAt\": null,\n            \"createdAt\": \"2024-11-16T23:46:14.787Z\",\n            \"updatedAt\": \"2024-11-17T16:27:23.866Z\"\n        },\n        {\n            \"id\": 3,\n            \"name\": \"Chocolate Milkshake\",\n            \"desc\": \"Delicious and creamy milkshake made with rich chocolate and topped with whipped cream.\",\n            \"price\": \"4.99\",\n            \"stock\": 100,\n            \"category\": \"drink\",\n            \"image\": \"https://ik.imagekit.io/ft0mydzbzq/chocolate-milkshake-16-11-2024.jpg?updatedAt=1731762622329\",\n            \"deletedAt\": null,\n            \"createdAt\": \"2024-11-16T23:46:14.787Z\",\n            \"updatedAt\": \"2024-11-16T23:46:14.787Z\"\n        },\n        {\n            \"id\": 4,\n            \"name\": \"Caesar Salad\",\n            \"desc\": \"Fresh romaine lettuce, Parmesan cheese, croutons, and Caesar dressing.\",\n            \"price\": \"7.99\",\n            \"stock\": 40,\n            \"category\": \"food\",\n            \"image\": \"https://ik.imagekit.io/ft0mydzbzq/chicken-caesar-salad-16-11-2024.jpeg?updatedAt=1731762622865\",\n            \"deletedAt\": null,\n            \"createdAt\": \"2024-11-16T23:46:14.787Z\",\n            \"updatedAt\": \"2024-11-16T23:46:14.787Z\"\n        },\n        {\n            \"id\": 5,\n            \"name\": \"Orange Juice\",\n            \"desc\": \"Freshly squeezed orange juice, perfect for a healthy and refreshing drink.\",\n            \"price\": \"3.49\",\n            \"stock\": 75,\n            \"category\": \"drink\",\n            \"image\": \"https://ik.imagekit.io/ft0mydzbzq/orange-juice-16-11-2024.jpg?updatedAt=1731762622174\",\n            \"deletedAt\": null,\n            \"createdAt\": \"2024-11-16T23:46:14.787Z\",\n            \"updatedAt\": \"2024-11-16T23:46:14.787Z\"\n        },\n        {\n            \"id\": 13,\n            \"name\": \"Beef Cheese Burger\",\n            \"desc\": \"Juicy beef patty topped with melted cheese in a soft bun.\",\n            \"price\": \"5.99\",\n            \"stock\": 100,\n            \"category\": \"food\",\n            \"image\": \"https://ik.imagekit.io/raaapiiip/image-burger.jpg_-6g-B5dTK.jpg\",\n            \"deletedAt\": null,\n            \"createdAt\": \"2024-11-17T16:18:18.420Z\",\n            \"updatedAt\": \"2024-11-17T16:18:18.420Z\"\n        }\n    ],\n    \"pagination\": {\n        \"totalProducts\": 6,\n        \"totalPages\": 1,\n        \"currentPage\": 1,\n        \"productsPerPage\": 10\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Product - Get Product By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}products/5",
+							"host": [
+								"{{base_url}}products"
+							],
+							"path": [
+								"5"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Success Get Product By Id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}products/2",
+									"host": [
+										"{{base_url}}products"
+									],
+									"path": [
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "438"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1b6-z0WWdkjiyBh/oDsKsEz+eBTO5xM\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 14:28:52 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Success\",\n    \"message\": \"Success to get product\",\n    \"isSuccess\": true,\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"Margarita Pizza\",\n        \"desc\": \"Classic Neapolitan pizza topped with fresh tomatoes, mozzarella, and basil.\",\n        \"price\": \"9.99\",\n        \"stock\": 30,\n        \"category\": \"food\",\n        \"image\": \"https://ik.imagekit.io/ft0mydzbzq/Margarita%20Pizza-16-11-2024.jpg?updatedAt=1731762623110\",\n        \"deletedAt\": null,\n        \"createdAt\": \"2024-11-16T23:46:14.787Z\",\n        \"updatedAt\": \"2024-11-16T23:46:14.787Z\"\n    }\n}"
+						},
+						{
+							"name": "404 - Product Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}products/7",
+									"host": [
+										"{{base_url}}products"
+									],
+									"path": [
+										"7"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "79"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4f-+igUFg72KIDgD9CrRbnYivZ40F4\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 14:29:10 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Failed\",\n    \"message\": \"Product not found\",\n    \"isSuccess\": false,\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Product - Create Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Beef Cheese Burger",
+									"type": "text"
+								},
+								{
+									"key": "desc",
+									"value": "Juicy beef patty topped with melted cheese in a soft bun.",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "5.99",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "100",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "food",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/LENOVO/Downloads/image-burger.jpg.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}products",
+							"host": [
+								"{{base_url}}products"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "201 - Product Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Beef Cheese Burger",
+											"type": "text"
+										},
+										{
+											"key": "desc",
+											"value": "Juicy beef patty topped with melted cheese in a soft bun.",
+											"type": "text"
+										},
+										{
+											"key": "price",
+											"value": "5.99",
+											"type": "text"
+										},
+										{
+											"key": "stock",
+											"value": "100",
+											"type": "text"
+										},
+										{
+											"key": "category",
+											"value": "food",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/LENOVO/Downloads/image-burger.jpg.jpg"
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}products",
+									"host": [
+										"{{base_url}}products"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "404"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"194-0HkMmJiw75Md8xQ/I6jvrIxqGuI\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 16:18:18 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Success\",\n    \"message\": \"Product created successfully\",\n    \"isSuccess\": true,\n    \"data\": {\n        \"id\": 13,\n        \"name\": \"Beef Cheese Burger\",\n        \"desc\": \"Juicy beef patty topped with melted cheese in a soft bun.\",\n        \"price\": \"5.99\",\n        \"stock\": 100,\n        \"category\": \"food\",\n        \"image\": \"https://ik.imagekit.io/raaapiiip/image-burger.jpg_-6g-B5dTK.jpg\",\n        \"updatedAt\": \"2024-11-17T16:18:18.420Z\",\n        \"createdAt\": \"2024-11-17T16:18:18.420Z\",\n        \"deletedAt\": null\n    }\n}"
+						},
+						{
+							"name": "400 - Empty Request Body",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "photoProfile",
+											"type": "file",
+											"src": "/C:/Users/LENOVO/Downloads/pexels-enginakyurt-2282532.jpg",
+											"disabled": true
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}products",
+									"host": [
+										"{{base_url}}products"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "122"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"7a-vsnVicEBQkYkvvzplBY7fxWSipg\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 14:45:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Failed\",\n    \"message\": \"Please provide name, description, price, stock, and category\",\n    \"isSuccess\": false,\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Product - Update Product",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Neapolitan Pizza\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}products/2",
+							"host": [
+								"{{base_url}}products"
+							],
+							"path": [
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "404 - Product Not Found",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}products/8",
+									"host": [
+										"{{base_url}}products"
+									],
+									"path": [
+										"8"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "79"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4f-+igUFg72KIDgD9CrRbnYivZ40F4\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 16:25:42 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Failed\",\n    \"message\": \"Product not found\",\n    \"isSuccess\": false,\n    \"data\": null\n}"
+						},
+						{
+							"name": "200 - Success Update Product",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Neapolitan Pizza\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}products/2",
+									"host": [
+										"{{base_url}}products"
+									],
+									"path": [
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "445"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1bd-rPs7WutE11uvVRxGVhp6totHFXA\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 16:27:24 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Success\",\n    \"message\": \"Product updated successfully\",\n    \"isSuccess\": true,\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"Neapolitan Pizza\",\n        \"desc\": \"Classic Neapolitan pizza topped with fresh tomatoes, mozzarella, and basil.\",\n        \"price\": \"9.99\",\n        \"stock\": 30,\n        \"category\": \"food\",\n        \"image\": \"https://ik.imagekit.io/ft0mydzbzq/Margarita%20Pizza-16-11-2024.jpg?updatedAt=1731762623110\",\n        \"deletedAt\": null,\n        \"createdAt\": \"2024-11-16T23:46:14.787Z\",\n        \"updatedAt\": \"2024-11-17T16:27:23.866Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Product - Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}products/12",
+							"host": [
+								"{{base_url}}products"
+							],
+							"path": [
+								"12"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "404 - Product Not Found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}products/8",
+									"host": [
+										"{{base_url}}products"
+									],
+									"path": [
+										"8"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "79"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4f-+igUFg72KIDgD9CrRbnYivZ40F4\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 15:52:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Failed\",\n    \"message\": \"Product not found\",\n    \"isSuccess\": false,\n    \"data\": null\n}"
+						},
+						{
+							"name": "200 - Success Delete Product",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}products/6",
+									"host": [
+										"{{base_url}}products"
+									],
+									"path": [
+										"6"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "90"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"5a-RB9umw54DA4CmZtN2w0Jn0gtMvI\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 15:52:41 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Success\",\n    \"message\": \"Product deleted successfully\",\n    \"isSuccess\": true,\n    \"data\": null\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "System",
+			"item": [
+				{
+					"name": "System - Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}health-check",
+							"host": [
+								"{{base_url}}health-check"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Passed Health Check",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}health-check",
+									"host": [
+										"{{base_url}}health-check"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "91"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"5b-3NnrRhTWw0d9Rt7wU0GbLv1/aAc\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 16:30:22 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Success\",\n    \"message\": \"Application passed healtcheck\",\n    \"isSuccess\": true,\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "System - On Lost",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api-kosong",
+							"host": [
+								"{{base_url}}api-kosong"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "404 - API Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}api-kosong",
+									"host": [
+										"{{base_url}}api-kosong"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "75"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4b-+p65kW9S9ZbIceMWizps7k81ox8\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 16:30:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Failed\",\n    \"message\": \"API not found\",\n    \"isSuccess\": false,\n    \"data\": null\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "User - Get All User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}users",
+							"host": [
+								"{{base_url}}users"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Success Get All User",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}users",
+									"host": [
+										"{{base_url}}users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1139"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"473-BZ0i620/qhIYcdq8ld4pF+JAC1E\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 14:12:37 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Success\",\n    \"message\": \"Success to get users\",\n    \"isSuccess\": true,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"Admin\",\n            \"email\": \"admin@example.com\",\n            \"password\": \"$2b$10$lFWa4YCXeN2Wu0YvPbR.qed.RJyynpdosM9pmGATe6otmtR36wtjm\",\n            \"address\": \"Jakarta\",\n            \"phone\": \"08123456789\",\n            \"role\": \"admin\",\n            \"photoProfile\": \"https://ik.imagekit.io/9h1gnwzay/default-image.jpg?updatedAt=1728904313272\",\n            \"createdAt\": \"2024-11-16T23:46:14.547Z\",\n            \"updatedAt\": \"2024-11-16T23:46:14.549Z\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"User\",\n            \"email\": \"user@example.com\",\n            \"password\": \"$2b$10$AmnrvsbX3PDrJqwtTU9yIuK5eEEqh/vP6dwDn1akNXiuxJuZ9dq9y\",\n            \"address\": \"Jakarta\",\n            \"phone\": \"08234567891\",\n            \"role\": \"user\",\n            \"photoProfile\": \"https://ik.imagekit.io/9h1gnwzay/default-image.jpg?updatedAt=1728904313272\",\n            \"createdAt\": \"2024-11-16T23:46:14.716Z\",\n            \"updatedAt\": \"2024-11-16T23:46:14.716Z\"\n        },\n        {\n            \"id\": 3,\n            \"name\": \"Rafif\",\n            \"email\": \"rafif@example.com\",\n            \"password\": \"$2b$10$ORfg2nZgxRMRVTTqk0WX4Oi2CVMokFYe.7sISC1GiDcVdB0pJOT8i\",\n            \"address\": \"Batam\",\n            \"phone\": \"08214365879\",\n            \"role\": \"user\",\n            \"photoProfile\": null,\n            \"createdAt\": \"2024-11-17T13:56:40.183Z\",\n            \"updatedAt\": \"2024-11-17T13:56:40.183Z\"\n        }\n    ],\n    \"pagination\": {\n        \"totalUsers\": 3,\n        \"totalPages\": 1,\n        \"currentPage\": 1,\n        \"usersPerPage\": 10\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "User - Get User By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}users/6",
+							"host": [
+								"{{base_url}}users"
+							],
+							"path": [
+								"6"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Success Get User By Id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}users/2",
+									"host": [
+										"{{base_url}}users"
+									],
+									"path": [
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "426"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1aa-gWivbRFuRF4GaalPybnBnezV9T0\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 14:13:40 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Success\",\n    \"message\": \"Success to get user\",\n    \"isSuccess\": true,\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"User\",\n        \"email\": \"user@example.com\",\n        \"password\": \"$2b$10$AmnrvsbX3PDrJqwtTU9yIuK5eEEqh/vP6dwDn1akNXiuxJuZ9dq9y\",\n        \"address\": \"Jakarta\",\n        \"phone\": \"08234567891\",\n        \"role\": \"user\",\n        \"photoProfile\": \"https://ik.imagekit.io/9h1gnwzay/default-image.jpg?updatedAt=1728904313272\",\n        \"createdAt\": \"2024-11-16T23:46:14.716Z\",\n        \"updatedAt\": \"2024-11-16T23:46:14.716Z\"\n    }\n}"
+						},
+						{
+							"name": "404 - User Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}users/6",
+									"host": [
+										"{{base_url}}users"
+									],
+									"path": [
+										"6"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "76"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4c-Hv7vrGVA+WZ66DTXnnOBFAViOcc\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 14:15:13 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Failed\",\n    \"message\": \"User not found\",\n    \"isSuccess\": false,\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "User - Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}users",
+							"host": [
+								"{{base_url}}users"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "201 - User Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Ahmad\",\r\n    \"email\": \"ahmad@example.com\",\r\n    \"password\": \"password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}users",
+									"host": [
+										"{{base_url}}users"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "348"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"15c-7jGo+qgxajSSWwWpVd4jsveyh9c\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 14:20:34 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Success\",\n    \"message\": \"User created successfully\",\n    \"isSuccess\": true,\n    \"data\": {\n        \"id\": 4,\n        \"name\": \"Ahmad\",\n        \"email\": \"ahmad@example.com\",\n        \"password\": \"$2b$10$nHBM6u/.PkR7ls08x41.kuBJNT4imJkzlgP0DMdOLpH9H00Kjs3yO\",\n        \"address\": null,\n        \"phone\": null,\n        \"role\": \"user\",\n        \"photoProfile\": null,\n        \"updatedAt\": \"2024-11-17T14:20:34.624Z\",\n        \"createdAt\": \"2024-11-17T14:20:34.624Z\"\n    }\n}"
+						},
+						{
+							"name": "400 - Empty Request Body",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}users",
+									"host": [
+										"{{base_url}}users"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "122"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"7a-vsnVicEBQkYkvvzplBY7fxWSipg\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 15:53:17 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Failed\",\n    \"message\": \"Please provide name, description, price, stock, and category\",\n    \"isSuccess\": false,\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "User - Update User",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Nauval\",\r\n    \"email\": \"nauval@example.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}users/9",
+							"host": [
+								"{{base_url}}users"
+							],
+							"path": [
+								"9"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Success Update User",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Nauval\",\r\n    \"email\": \"nauval@example.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}users",
+									"host": [
+										"{{base_url}}users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "350"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"15e-Pw5zf1hemMOM7JXi1zJyHnWOwyk\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 14:23:15 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Success\",\n    \"message\": \"User updated successfully\",\n    \"isSuccess\": true,\n    \"data\": {\n        \"id\": 4,\n        \"name\": \"Nauval\",\n        \"email\": \"nauval@example.com\",\n        \"password\": \"$2b$10$nHBM6u/.PkR7ls08x41.kuBJNT4imJkzlgP0DMdOLpH9H00Kjs3yO\",\n        \"address\": null,\n        \"phone\": null,\n        \"role\": \"user\",\n        \"photoProfile\": null,\n        \"createdAt\": \"2024-11-17T14:20:34.624Z\",\n        \"updatedAt\": \"2024-11-17T14:23:15.074Z\"\n    }\n}"
+						},
+						{
+							"name": "404 - User Not Found",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Nauval\",\r\n    \"email\": \"nauval@example.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}users/9",
+									"host": [
+										"{{base_url}}users"
+									],
+									"path": [
+										"9"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "76"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4c-Hv7vrGVA+WZ66DTXnnOBFAViOcc\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 14:24:05 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Failed\",\n    \"message\": \"User not found\",\n    \"isSuccess\": false,\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "User - Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}users/4",
+							"host": [
+								"{{base_url}}users"
+							],
+							"path": [
+								"4"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Success Delete User",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}users/4",
+									"host": [
+										"{{base_url}}users"
+									],
+									"path": [
+										"4"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "84"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"54-LPTbBddUmihYUOMkwI304lWDMlU\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 14:25:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Success\",\n    \"message\": \"Success to delete user\",\n    \"isSuccess\": true,\n    \"data\": null\n}"
+						},
+						{
+							"name": "404 - User Not Found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}users/9",
+									"host": [
+										"{{base_url}}users"
+									],
+									"path": [
+										"9"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "76"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4c-Hv7vrGVA+WZ66DTXnnOBFAViOcc\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 14:24:41 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Failed\",\n    \"message\": \"User not found\",\n    \"isSuccess\": false,\n    \"data\": null\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}

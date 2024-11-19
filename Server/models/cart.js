@@ -11,11 +11,35 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      cart.belongsTo(models.products, {
+        foreignKey: 'productId'
+      });
+      cart.belongsTo(models.users, {
+        foreignKey: 'userId'
+      });
     }
   }
   cart.init({
-    amount: DataTypes.STRING,
-    total: DataTypes.STRING,
+    amount: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        isNumeric: {
+          msg: "Phone number should contain only numbers",
+      }
+      }
+    },
+    total: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        isNumeric: {
+          msg: "Phone number should contain only numbers",
+      }
+      }
+    },
     userId: DataTypes.INTEGER,
     productId: DataTypes.INTEGER
   }, {

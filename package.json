@@ -13,6 +13,8 @@
   "description": "",
   "dependencies": {
     "concurrently": "^9.1.0",
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.14.5"
   }
 }
