@@ -1,4 +1,3 @@
-import { useAuth } from "../context/AuthContext";
 import { useLoaderData } from "react-router-dom";
 import axiosInstance from "../api/axiosInstance";
 import CardProduct from "../components/Card/CardProduct";
@@ -30,11 +29,21 @@ export const loader = async () => {
 
 function HomeView() {
   const { products } = useLoaderData();
-  const { isAdmin, isLoading } = useAuth();
+  const [isAdmin, setIsAdmin] = useState(false);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  useEffect(() => {
+    const verifyAdmin = async () => {
+      try {
+        const isAdminUser = await checkAccess();
+        setIsAdmin(isAdminUser);
+      } catch (error) {
+        console.error("Error checking admin access:", error);
+        setIsAdmin(false);
+      }
+    };
+
+    verifyAdmin();
+  }, []);
 
   return (
     <>
